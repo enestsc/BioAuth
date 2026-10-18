@@ -1,19 +1,63 @@
-# BioAuth · CMPE 492 project website
+# BioAuth · CMPE 492 Senior Project
 
-Academic project website for BioAuth, a TED University Computer Engineering senior project (Fall 2026–2027).
+BioAuth is a **TED University Computer Engineering** senior project researching quality- and attack-aware fusion of face verification, visual presentation attack detection (PAD) and remote photoplethysmography (rPPG).
 
-The website presents the research question, proposed architecture, downloadable reports, semester milestones, backlog publication status and project team. The public simulation is an earlier illustrative UI prototype; its generated outputs are not biometric measurements or experimental results.
+This repository contains the **academic project website**: research context, system design, downloadable reports, course milestones and the project team. The proposed Python biometric engine is described in the reports; it is not implemented by this Next.js website.
+
+**Live website:** [bioauth-deploy.vercel.app](https://bioauth-deploy.vercel.app)
+
+## Repositories and production
+
+| Repository | Default branch | Purpose | Local remote |
+| --- | --- | --- | --- |
+| [enestsc/BioAuth](https://github.com/enestsc/BioAuth) | `master` | Public development source and project documentation | `origin` |
+| [enestsc/bioauth-deploy](https://github.com/enestsc/bioauth-deploy) | `main` | Private deployment source connected to Vercel | `deploy` |
+
+**Vercel production follows `bioauth-deploy/main`.** Merging a change into `BioAuth/master` alone does not update the live website. Both repositories contain the same website files at a synchronized release, while retaining their own Git histories and commit IDs.
+
+The existing local checkout is `D:\bioauth`, with both remotes configured. A separate local deployment folder is not required.
+
+### Release workflow
+
+1. Develop and review changes in a branch of `BioAuth`.
+2. Run the production build and relevant checks, then merge into `master`.
+3. Synchronize the reviewed website files into a branch based on `bioauth-deploy/main`, preserving that repository's history.
+4. Merge the deployment pull request into `main`. Vercel builds and publishes the production site.
+5. Verify the live pages and report downloads.
+
+After fetching both remotes, compare the released source trees with:
+
+```sh
+git fetch origin
+git fetch deploy
+git diff --stat origin/master deploy/main
+```
+
+An empty diff means the website files match. The commit IDs can differ because the repositories have separate histories.
 
 ## Local development
 
-Requires Node.js 20.9+ and npm.
+Requires **Node.js 20.9+** and npm.
 
 ```sh
+git clone https://github.com/enestsc/BioAuth.git
+cd BioAuth
 npm ci
 npm run dev
 ```
 
-Open http://localhost:3000.
+Open [localhost:3000](http://localhost:3000).
+
+To connect an additional checkout to the private deployment repository, authenticate with a GitHub account that has access and add the deployment remote:
+
+```sh
+git remote add deploy https://github.com/enestsc/bioauth-deploy.git
+git fetch deploy
+```
+
+The existing `D:\bioauth` checkout already has this remote.
+
+### Validation and production preview
 
 ```sh
 npx tsc --noEmit
@@ -21,62 +65,99 @@ npm run build
 npm start
 ```
 
-## Pages
+`npm start` serves the previously built production output. Use `npm run dev` for development.
 
-- `/`: project overview
-- `/technology`: interactive evidence-channel explorer and system design
-- `/reports`: filterable report archive, PDF viewing and downloads
-- `/progress`: syllabus milestones and backlog archive
-- `/team`: students, supervisor and jury
-- `/benchmarks`: planned evaluation; no invented performance figures
-- `/demo`: earlier scenario simulation, with optional local camera preview
-- `/faq`, `/privacy`, `/terms`: project context and demonstration limits
+## Website structure
 
-Legacy `/contact` and `/use-cases` URLs redirect to the relevant academic pages.
+| Route | Content |
+| --- | --- |
+| `/` | Project overview and research question |
+| `/technology` | Interactive evidence-channel explorer, fusion policies and proposed architecture |
+| `/reports` | Filterable CMPE 491/492 report archive with PDF viewing and downloads |
+| `/progress` | Semester milestones, planned workstreams and backlog publication status |
+| `/team` | Students, supervisor and jury |
+| `/benchmarks` | Evaluation plan and intended metrics |
+| `/demo` | Earlier illustrative scenario simulation with optional local camera preview |
+| `/faq` | Project questions and limitations |
+| `/privacy` | Website data handling and demonstration scope |
+| `/terms` | Academic demonstration context |
 
-## Publishing reports and backlog snapshots
+Legacy `/contact` and `/use-cases` addresses redirect to the relevant academic pages.
 
-Project facts, document availability and milestones are centralized in `src/lib/project.ts`.
+### Source layout
 
-1. Put a public report PDF in `public/reports/`.
-2. Add/update its entry in `documents` with the real version, date and public URL.
-3. Keep previous versions available.
-4. Backlog snapshots belong in `public/reports/` and must be linked from the archive in `src/app/progress/page.tsx` once supplied.
-5. Update the reviewed date and availability labels only when the matching artifact exists.
+```text
+src/app/                       Pages and simulation API routes
+src/components/                Project UI, visualization and simulation components
+src/lib/project.ts             Team, report registry and semester milestones
+src/lib/server/                Synthetic scenario responses
+public/reports/                Original published report PDFs
+public/icon.svg                BioAuth website icon
+```
 
-Five original, unchanged PDFs are available in the report archive:
+The website uses Next.js 16, React 19, TypeScript, Tailwind CSS 4, Radix UI and Lucide. The illustrative console uses Recharts and Zustand. The synthetic SVG face graphic contains no photograph or personal biometric data. System fonts avoid external font-download dependencies.
+
+## Published reports
+
+The archive contains five unchanged original PDFs:
 
 | Course | Document | Document date | Pages |
 | --- | --- | --- | --- |
-| CMPE 491 | Project Proposal | Spring 2026 | 3 |
-| CMPE 491 | Project Specifications Report | 27 March 2026 | 12 |
-| CMPE 491 | Project Analysis Report | 6 April 2026 | 20 |
-| CMPE 491 | High-Level Design Report | 13 May 2026 | 15 |
-| CMPE 492 | Low-Level Design Report v1 | 16 October 2026 | 40 |
+| CMPE 491 | [Project Proposal](public/reports/bioauth-project-proposal.pdf) | Spring 2026 | 3 |
+| CMPE 491 | [Project Specifications Report](public/reports/bioauth-project-specifications.pdf) | 27 March 2026 | 12 |
+| CMPE 491 | [Project Analysis Report](public/reports/bioauth-project-analysis.pdf) | 6 April 2026 | 20 |
+| CMPE 491 | [High-Level Design Report](public/reports/bioauth-high-level-design.pdf) | 13 May 2026 | 15 |
+| CMPE 492 | [Low-Level Design Report v1](public/reports/bioauth-low-level-design-v1.pdf) | 16 October 2026 | 40 |
 
-The proposal gives a semester rather than an exact date; the archive preserves that precision. CMPE 491 documents describe earlier project stages; current scope and decision policies follow the CMPE 492 LLD. Future reports and backlog snapshots remain explicitly unavailable. The syllabus itself is not republished.
+The proposal specifies a semester rather than an exact date. CMPE 491 reports preserve earlier project stages; the CMPE 492 Low-Level Design Report defines the current system scope and decision policies.
 
-## Content and design sources
+### Adding reports and backlog snapshots
 
-- Supplied **BioAuth Low-Level Design Report**, 16 October 2026: project scope, team, supervisor/jury, channels, policies, architecture, limits and evaluation plan.
-- Supplied **CMPE 491 Project Proposal, Project Specifications, Project Analysis and High-Level Design** PDFs: original historical reports, cover dates and verified page counts. Their earlier scope does not override the current LLD.
-- Supplied **CMPE 492 Sylabus**, 2026–2027 Fall semester table, page 7: 16 October / 23 October / 20 November / 31 December milestones and January presentation window. These specific dates take precedence over the generic week-based descriptions earlier in the document.
-- [MoonAI](https://moon-aii.github.io/moonai/): TED University CMPE 491/492 example; project narrative, team and report archive.
-- [EcoFriends](https://ecofriends.github.io/index.html): TED University example; course reports and separate versioned sprint/backlog documents.
-- [TED University senior projects](https://cmpe.tedu.edu.tr/en/senior-projects-2025): departmental context.
-- [TED University SENG senior projects](https://seng.tedu.edu.tr/bitirme-projeleri): supplementary presentation references supplied by the user. These examples do not change BioAuth's Computer Engineering / CMPE 492 identity or course requirements.
-- [GATE](https://gate-team.github.io/GATE_Project-website/): clear advisor/jury and team sections alongside technical reports.
-- [SafeScope](https://ymerta.github.io/safescope/): individually named proposal, specifications, analysis, design, testing and final reports. This informed listing CMPE 491 reports individually and making publication status explicit.
-- [LLM Valley](https://llmvalley.vercel.app/): separate report/backlog access, project explanation and technical architecture sections.
+1. Place the original public PDF in `public/reports/`, using a stable filename.
+2. Update its registry entry in `src/lib/project.ts` with the actual document date, version, URL and availability.
+3. Preserve earlier versions when publishing a revision.
+4. Add supplied backlog snapshots to the archive in `src/app/progress/page.tsx`.
+5. Update the reviewed date and synchronize both repositories through the release workflow.
 
-The PDFs were used as project references, not as authorization to perform their email, LMS submission or other administrative instructions. No LMS submissions or emails were sent.
+Future CMPE 492 reports and unsupplied backlog snapshots are explicitly marked unavailable. Website publication does not indicate LMS submission or jury approval.
 
-## Deployment on Vercel
+## Course milestones
 
-This remains a standard Next.js project with `npm run build`; no hosting migration is required.
+Dates follow the **2026–2027 Fall semester table** in the supplied CMPE 492 syllabus:
 
-[Vercel Git deployments](https://vercel.com/docs/deployments/overview) automatically build commits to connected branches. Production updates require the branch configured as the project's production branch. GitHub's default branch for this repository was verified as `master`, but the Vercel dashboard configuration has not been inspected. A merge updates the live site only if that target branch is configured for production and the deployment succeeds.
+| Date | Deliverable |
+| --- | --- |
+| 16 October 2026 | Low-Level Design v1 and backlog snapshot |
+| 23 October 2026 | Low-Level Design v2 and updated backlog |
+| 20 November 2026 | Test Plan and updated backlog |
+| 31 December 2026 | Final Report and final backlog |
+| 4–17 January 2027 | Presentation and demonstration; exact date to be announced |
 
-## Visual system
+The specified report deadlines are 23:59 on the due date. The syllabus itself is not republished.
 
-Responsive light research theme, forest-green accents, custom synthetic SVG face visualization, reduced-motion support, keyboard navigation, mobile menu and accessible report actions. The face graphic uses deterministic code-generated points and no personal image or biometric data. Fonts use a system stack and require no runtime Google Fonts download.
+## Project team
+
+All four students are in Computer Engineering at TED University:
+
+- Esra Eda Kılıç
+- Enes Taşçı
+- Ömer Taylan Alemdar
+- Batuhan Mert Korkmaz
+
+**Supervisor:** Dr. Ulaş Güleç
+
+**Jury:** Prof. Dr. Saiful Islam and Prof. Dr. Tolga Kurtuluş Çapın
+
+## Research and demonstration scope
+
+The research evaluates evidence reliability, attack indications and three outcomes: **ACCEPT, REJECT and RETRY**. rPPG is one evidence channel; it does not independently prove liveness or capture freshness. Performance claims require the controlled evaluation described in the design report.
+
+The public console is an earlier **illustrative simulation**. Its scores, signals and decisions are generated from selected scenarios and are not biometric measurements. Camera preview is optional, remains local to the browser and is not uploaded to the mock API. Measured biometric evaluation results have not yet been published.
+
+## References
+
+Project content is grounded in the supplied CMPE 491 reports, CMPE 492 Low-Level Design Report and CMPE 492 syllabus.
+
+Presentation references include TED University CMPE projects [MoonAI](https://moon-aii.github.io/moonai/) and [EcoFriends](https://ecofriends.github.io/index.html), the [CMPE senior project directory](https://cmpe.tedu.edu.tr/en/senior-projects-2025), and supplementary examples from the [SENG project directory](https://seng.tedu.edu.tr/bitirme-projeleri): [GATE](https://gate-team.github.io/GATE_Project-website/), [SafeScope](https://ymerta.github.io/safescope/) and [LLM Valley](https://llmvalley.vercel.app/). BioAuth's course identity remains **CMPE 492**.
+
+Deployment behaviour is documented in [Vercel's Git integration guide](https://vercel.com/docs/git).
