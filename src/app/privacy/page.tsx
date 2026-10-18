@@ -1,23 +1,5 @@
-export default function PrivacyPage() {
-  return (
-    <div className="container mx-auto px-4 py-16 max-w-3xl space-y-8">
-      <h1 className="text-4xl font-extrabold tracking-tight">Privacy Policy</h1>
-      <p className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">Last Updated: [Placeholder Date]</p>
-      
-      <div className="prose prose-invert max-w-none text-muted-foreground leading-relaxed mt-8">
-        <h2 className="text-xl font-bold text-foreground mt-8 mb-4">1. Introduction</h2>
-        <p>This is a placeholder Privacy Policy for the BioAuth capstone project demonstration. In a production environment, this page would detail the complex operational protocols regarding biometric data handling.</p>
-
-        <h2 className="text-xl font-bold text-foreground mt-8 mb-4">2. Data Collection (MVP)</h2>
-        <p><strong>Strict Adherence:</strong> No Personally Identifiable Information (PII) or biometric facial data (e.g., webcam footage) is stored, transmitted beyond ephemeral memory, or logged by the serverless Vercel backend during routine demonstration usage.</p>
-        <p>The interactive Demo processes localized streams exclusively. Telemetry metadata (timestamps, inferred signal ratios) may be passed for dashboard visualizations but is instantly discarded post-request.</p>
-
-        <h2 className="text-xl font-bold text-foreground mt-8 mb-4">3. Contact Forms</h2>
-        <p>If you utilize the Contact page form, the email and name provided will be parsed statelessly for demonstration. No persistent database is attached.</p>
-
-        <h2 className="text-xl font-bold text-foreground mt-8 mb-4">4. Biometric Assertions</h2>
-        <p>Because BioAuth attempts to resolve rPPG outputs, any real production integration would be strictly governed under GDPR, CCPA, and BIPA regulations, necessitating explicit user consent flows omitted in this research prototype architecture.</p>
-      </div>
-    </div>
-  );
-}
+import type { Metadata } from "next";
+import Link from "next/link";
+import { PageIntro } from "@/components/ProjectUI";
+export const metadata: Metadata = { title: "Privacy & Demonstration Data" };
+export default function PrivacyPage() { return <div className="site-container"><PageIntro number="07" label="PRIVACY & DATA" title="Clear about what this site does.">Public project documentation and an illustrative simulation for academic use.</PageIntro><div className="prose-content"><h2>Public website</h2><p>The website publishes project information and the reports linked in the archive. It does not provide biometric enrollment, identity verification or transaction authorization.</p><h2>Interactive simulation</h2><p>The optional camera preview remains in your browser. The simulation API receives the selected scenario, challenge type and a generated session identifier; it does not receive camera images or video. Scores and waveforms are generated, and face-position and lighting indicators are illustrative rather than measured.</p><p>Camera access is optional and requested only when you enable the preview. You can stop it from the preview panel or revoke permission through your browser. The simulation can run without camera access.</p><h2>Hosting</h2><p>The website is deployed on Vercel. Hosting infrastructure may process ordinary request and operational logs according to the hosting configuration. This site does not make a blanket claim that no hosting metadata exists.</p><h2>Planned biometric system</h2><p>The Low-Level Design Report specifies transient ordinary session frames, encrypted approved reference templates and separate temporary enrollment-review evidence. These describe the proposed system and are distinct from this public website's simulated console.</p><p>See the <Link href="/reports">design report</Link> for the detailed data lifecycle and the <Link href="/team">project team</Link> for academic context.</p></div></div>; }

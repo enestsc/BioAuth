@@ -1,98 +1,49 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useBioAuthStore } from "@/lib/store";
+import { useEffect, useRef, useState } from "react";
+import { Camera, CameraOff } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Camera, RefreshCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function DemoCameraPanel() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);
-  const { setCameraConnected, setFaceDetected, setLightingGood } = useBioAuthStore();
+  const [enabled, setEnabled] = useState(false);
+  const [connected, setConnected] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    async function setupCamera() {
+    if (!enabled) return;
+    let cancelled = false;
+    let stream: MediaStream | null = null;
+    async function startPreview() {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          video: { facingMode: "user", width: 640, height: 480 } 
-        });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-        streamRef.current = stream;
-        setCameraConnected(true);
-        setFaceDetected(true); // Simulated for MVP
-        setLightingGood(true); // Simulated for MVP
-      } catch (err) {
-        console.error("Camera access denied", err);
-        setCameraConnected(false);
+        const incoming = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: 640, height: 480 }, audio: false });
+        if (cancelled) { incoming.getTracks().forEach(track => track.stop()); return; }
+        stream = incoming;
+        if (videoRef.current) videoRef.current.srcObject = incoming;
+        setConnected(true);
+      } catch {
+        if (!cancelled) { setError("Camera unavailable or permission denied. The simulation works without it."); setEnabled(false); }
       }
     }
-    setupCamera();
-
+    void startPreview();
     return () => {
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach(track => track.stop());
-      }
+      cancelled = true;
+      stream?.getTracks().forEach(track => track.stop());
+      if (videoRef.current) videoRef.current.srcObject = null;
     };
-  }, [setCameraConnected, setFaceDetected, setLightingGood]);
+  }, [enabled]);
 
-  const { cameraConnected, faceDetected, lightingGood } = useBioAuthStore();
+  function stopPreview() { setEnabled(false); setConnected(false); }
 
-  return (
-    <Card className="border-border/40 bg-card/50 overflow-hidden">
-      <CardHeader className="p-4 py-3 border-b border-border/40 flex flex-row items-center justify-between">
-        <CardTitle className="text-sm font-medium flex items-center gap-2">
-          <Camera className="w-4 h-4 text-primary" />
-          Live Capture
-        </CardTitle>
-        <div className="flex gap-2">
-          {cameraConnected ? (
-            <Badge variant="outline" className="text-green-500 border-green-500/20 bg-green-500/10">Active</Badge>
-          ) : (
-            <Badge variant="outline" className="text-destructive border-destructive/20 bg-destructive/10">Offline</Badge>
-          )}
-        </div>
-      </CardHeader>
-      <CardContent className="p-0 relative bg-black aspect-video flex items-center justify-center overflow-hidden">
-        {cameraConnected ? (
-           <video 
-             ref={videoRef} 
-             autoPlay 
-             playsInline 
-             muted 
-             className="object-cover w-full h-full -scale-x-100"
-           />
-        ) : (
-          <div className="flex flex-col items-center justify-center text-muted-foreground gap-2">
-             <Camera className="w-8 h-8 opacity-50" />
-             <p className="text-sm">Camera permission denied</p>
-          </div>
-        )}
-        
-        {/* Face tracking bounding box graphic */}
-        {cameraConnected && (
-          <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-            <div className={`w-48 h-64 border-2 rounded-xl border-dashed transition-colors duration-500 ${faceDetected ? 'border-primary/60' : 'border-destructive/60'}`}>
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black/60 px-2 py-0.5 rounded text-[10px] text-white">
-                ROI Extractor
-              </div>
-            </div>
-          </div>
-        )}
-      </CardContent>
-      {/* Status Chips */}
-      <div className="bg-background/40 backdrop-blur-sm p-3 grid grid-cols-2 gap-2 text-xs border-t border-border/40">
-        <div className="flex items-center gap-2 justify-center py-1 rounded bg-muted/40 border border-border/50">
-          <div className={`w-2 h-2 rounded-full ${faceDetected ? 'bg-primary' : 'bg-muted-foreground'}`}></div>
-          Face Centered
-        </div>
-        <div className="flex items-center gap-2 justify-center py-1 rounded bg-muted/40 border border-border/50">
-          <div className={`w-2 h-2 rounded-full ${lightingGood ? 'bg-primary' : 'bg-destructive'}`}></div>
-          Lighting Acceptable
-        </div>
+  return <Card className="border-border/60 overflow-hidden">
+    <CardHeader className="p-4 py-3 border-b border-border/60"><CardTitle className="text-sm font-medium flex items-center gap-2"><Camera className="w-4 h-4 text-primary" />Optional camera preview</CardTitle></CardHeader>
+    <CardContent className="p-0">
+      <div className="relative bg-[#153b32] aspect-video flex items-center justify-center">
+        <video ref={videoRef} autoPlay playsInline muted aria-label="Local camera preview" className={connected ? "object-cover w-full h-full -scale-x-100" : "hidden"} />
+        {!connected && <div className="text-center text-[#afc8b5] px-5"><CameraOff className="w-7 h-7 mx-auto mb-2" /><p className="text-xs">No camera required</p></div>}
       </div>
-    </Card>
-  );
+      <div className="p-4 space-y-3"><p className="text-xs text-muted-foreground">Local preview only. Camera frames are not analysed or sent to the simulation API.</p>{error && <p className="text-xs text-destructive" role="status">{error}</p>}{enabled ? <Button variant="outline" size="sm" className="w-full" onClick={stopPreview}>Stop camera preview</Button> : <Button variant="outline" size="sm" className="w-full" onClick={() => { setError(""); setEnabled(true); }}>Enable camera preview</Button>}</div>
+    </CardContent>
+  </Card>;
 }

@@ -28,15 +28,15 @@ export function DecisionCard() {
   if (decision === 'accept') {
     badgeColor = "bg-green-500/10 text-green-500 border-green-500/20";
     Icon = ShieldCheck;
-    decisionText = "LIVENESS APPROVED";
+    decisionText = "SIMULATED ACCEPT";
   } else if (decision === 'retry') {
     badgeColor = "bg-amber-500/10 text-amber-500 border-amber-500/20";
     Icon = ShieldAlert;
-    decisionText = "RETRY REQUESTED";
+    decisionText = "SIMULATED RETRY";
   } else {
     badgeColor = "bg-destructive/10 text-destructive border-destructive/20";
     Icon = ShieldAlert;
-    decisionText = "LIVENESS REJECTED";
+    decisionText = "SIMULATED REJECT";
   }
 
   return (

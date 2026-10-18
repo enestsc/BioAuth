@@ -1,65 +1,11 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Activity, Shield, Cpu, RefreshCcw, EyeOff, LightbulbOff } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, CheckCheck, RotateCcw, ShieldX } from "lucide-react";
+import { PageIntro, SectionHeading, ReportCallout, ResearchNote } from "@/components/ProjectUI";
+import { ResearchExplorer } from "@/components/ResearchExplorer";
 
-export default function TechnologyPage() {
-  return (
-    <div className="container mx-auto px-4 py-16 max-w-4xl space-y-16">
-      
-      <div className="space-y-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Technology & Architecture</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Understanding the mechanics of physiology-based liveness and our capstone prototype architecture.
-        </p>
-      </div>
+export const metadata: Metadata = { title: "Research & System Design" };
 
-      <section className="space-y-6">
-        <h2 className="text-2xl font-bold border-b border-border/40 pb-4">What is rPPG?</h2>
-        <div className="prose prose-invert max-w-none text-muted-foreground leading-relaxed">
-          <p>
-            Remote Photoplethysmography (rPPG) is an optical technique that measures variations in blood volume within the microvascular bed of tissue just beneath the skin. As the heart beats, blood volume in the face changes, subtly altering the amount of ambient light absorbed and reflected.
-          </p>
-          <p>
-            While these color variations are generally invisible to the naked human eye, standard RGB webcam sensors can detect them. By isolating the facial region (ROI), tracking it over frames, and analyzing the color channel fluctuations (specifically the green channel, which has strong absorption characteristics for hemoglobin), we can extract a time-series signal corresponding to the subject's pulse.
-          </p>
-        </div>
-      </section>
-
-      <section className="space-y-8">
-        <h2 className="text-2xl font-bold border-b border-border/40 pb-4">The Threat Model</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <Card className="bg-card/50 border-border/40">
-            <CardContent className="pt-6 space-y-2">
-              <RefreshCcw className="w-8 h-8 text-amber-500 mb-4" />
-              <h3 className="text-lg font-semibold">Replay Attacks</h3>
-              <p className="text-sm text-muted-foreground">Presenting a pre-recorded video on a phone or tablet. High-res screens lack the dynamic physiological depth and specular reflections of living skin.</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card/50 border-border/40">
-            <CardContent className="pt-6 space-y-2">
-              <EyeOff className="w-8 h-8 text-destructive mb-4" />
-              <h3 className="text-lg font-semibold">Synthetic Deepfakes</h3>
-              <p className="text-sm text-muted-foreground">AI-generated facial animations applied to a real incoming feed. Generative networks struggle to maintain consistent physiological frequencies across different facial patches.</p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <section className="space-y-6">
-        <h2 className="text-2xl font-bold border-b border-border/40 pb-4">MVP Limitations & Serverless Simulation</h2>
-        <div className="bg-muted/30 border border-border/50 rounded-xl p-6 space-y-4 text-muted-foreground">
-          <div className="flex items-center gap-3 text-foreground font-semibold">
-            <Cpu className="w-5 h-5" />
-            <span>Capstone Prototype Constraints</span>
-          </div>
-          <p className="text-sm leading-relaxed">
-            Because this application runs entirely on Vercel's serverless infrastructure without a persistent backend or Python-based computer vision servers, the demo provided uses a <strong>simulation engine</strong>. 
-          </p>
-          <p className="text-sm leading-relaxed">
-            The frontend securely transmits parameters to the Next.js API route, which procedurally generates deterministic physiological signals, frequency spectra, and decisions aligned with real-world rPPG failure modes. Production-grade systems require heavy OpenCV/PyTorch integrations that exceed Vercel function size and timeout limitations.
-          </p>
-        </div>
-      </section>
-
-    </div>
-  );
+export default function ResearchPage() {
+  return <div className="site-container"><PageIntro number="01" label="RESEARCH & SYSTEM DESIGN" title="Multiple signals. A considered decision.">BioAuth studies whether quality- and attack-aware fusion can improve the balance between security, genuine-user experience and computational cost.</PageIntro><ResearchNote /><section className="content-section" style={{marginTop:35}}><SectionHeading number="01" label="THE EVIDENCE CHANNELS" title="Understand what each signal can tell us." description="Explore the purpose, method and limits of each input. All channels remain separate until an immutable evidence snapshot is evaluated by the selected policy." /><ResearchExplorer /></section><section className="content-section"><SectionHeading number="02" label="QUALITY- & ATTACK-AWARE FUSION" title="Reliability comes before a score." description="Every policy shares mandatory safety gates. Face mismatch or strong qualified PAD evidence can reject an attempt; missing or unreliable required evidence prevents acceptance." /><div className="policy-grid">{[{label:"C / L1",title:"Fixed-weight baseline",text:"Combine normalized face, PAD and physiological support using validation-selected fixed weights and decision bands."},{label:"C-Q",title:"Quality-only baseline",text:"Weight the same evidence by channel reliability, retaining the same required gates and evaluation protocol."},{label:"D / L2",title:"Quality & attack awareness",text:"Add explicit conservative rules for suspicious patterns and channel disagreement. Measure the resulting cost in retries and coverage."}].map(item=><article className="detail-card" key={item.label}><span className="eyebrow">{item.label}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div><p className="inline-note">L3 is an ML-assisted advisory strategy planned for offline evaluation. It must retain the shared safety gates and L2 safety holds. These are alternative policies, rather than sequential processing stages.</p></section><section className="content-section"><SectionHeading number="03" label="EXPLAINABLE OUTCOMES" title="Knowing when to ask again." /><div className="policy-grid">{[{icon:CheckCheck,title:"ACCEPT",text:"All required evidence is usable, safety gates pass and the selected policy supports acceptance."},{icon:ShieldX,title:"REJECT",text:"Reliable identity mismatch, qualified attack evidence or another explicit rejection rule prevents this attempt."},{icon:RotateCcw,title:"RETRY",text:"Evidence is insufficient, unreliable or inconclusive. A fresh capture is needed; missing physiology alone is not proof of attack."}].map(item=><article className="detail-card" key={item.title}><item.icon size={26} strokeWidth={1.4} /><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section><section className="content-section"><SectionHeading number="04" label="MODULAR BY DESIGN" title="A reusable core. Clear boundaries." description="The proposed Python Core owns evidence and decisions. The application layer owns sessions, enrollment review and authorization. The browser captures data; the server selects and runs the authoritative policy." /><div className="architecture-flow"><span>React web client</span><ArrowRight size={17} /><span>TypeScript capture SDK</span><ArrowRight size={17} /><span>FastAPI service</span><ArrowRight size={17} /><span>Python Core</span></div><p className="inline-note">PostgreSQL persistence, encrypted reference templates and role-filtered audit records belong to the service and infrastructure layers. This is the architecture specified in the design report; the public website currently hosts documentation and an illustrative simulation.</p></section><section className="content-section" id="applications"><SectionHeading number="05" label="REPRESENTATIVE INTEGRATION" title="Step-up verification for a sensitive action." description="The controlled demo design covers reviewed account enrollment and verification before a payout-destination change. Biometric acceptance and authorized manual review are both required for account activation; routine review cannot override a biometric rejection." /><p>The document portrait is used as a facial reference. The design does not authenticate official documents or provide full KYC. Dynamic light challenges, native secure capture, deep-learning rPPG, OCR and NFC are deferred extensions.</p><Link href="/benchmarks" className="text-link">Explore the evaluation plan <ArrowUpRight size={16} /></Link></section><ReportCallout /></div>;
 }

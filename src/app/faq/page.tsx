@@ -1,68 +1,13 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { MessageCircleQuestion } from "lucide-react";
-
-export default function FAQPage() {
-  const faqs = [
-    {
-      q: "What is BioAuth?",
-      a: "BioAuth is a next-generation identity verification and liveness assurance platform concept. It addresses AI-era spoofing risks (like deepfakes and replay attacks) by combining traditional visual challenge-response tests with a physiology-based liveness check (rPPG)."
-    },
-    {
-      q: "What is rPPG?",
-      a: "rPPG stands for remote Photoplethysmography. It is a technique used to detect variations in blood volume within facial tissue by analyzing subtle color changes in video frames. This provides a \"heartbeat\" or physiological signal that proves the subject is alive."
-    },
-    {
-      q: "Does BioAuth replace face verification?",
-      a: "No. BioAuth is designed to be an additional layer of security (a liveness check) that runs concurrently with standard 1:1 facial matching or 1:N facial recognition systems."
-    },
-    {
-      q: "Can BioAuth detect every deepfake?",
-      a: "While no security system is 100% foolproof, BioAuth significantly raises the bar. Generative AI models currently struggle to synthesize consistent, biologically accurate microvascular perfusion patterns across different regions of a moving face."
-    },
-    {
-      q: "Why can lighting affect physiological liveness estimation?",
-      a: "rPPG relies on the webcam sensor's ability to capture subtle reflections of ambient light off the skin. In very low light, the signal-to-noise ratio is too low (sensor noise dominates), making it difficult to extract a reliable pulse. In these cases, BioAuth requests a retry in better lighting rather than failing the user."
-    },
-    {
-      q: "Why does the demo sometimes say \"Retry\" instead of \"Reject\"?",
-      a: "A \"Reject\" is issued when the system actively detects spoofing indicators (like a lack of pulse or inconsistent signals indicative of a mask/deepfake). A \"Retry\" is issued when environmental factors (like poor lighting or excessive motion) prevent the system from making a confident assessment either way."
-    },
-    {
-      q: "Is webcam video stored in this MVP?",
-      a: "No. This capstone/research prototype operates completely statelessly. Frame data is processed locally within your browser (and in a real deployment, securely transmitted to an ephemeral processing pipeline). No video or Personally Identifiable Information (PII) is stored."
-    },
-    {
-      q: "Is this production-ready for banks?",
-      a: "This specific application is a research prototype and capstone demonstration. While the concepts and simulation demonstrate how a real system works, a production banking deployment would require an audited, compiled computer vision backend (e.g., C++/PyTorch) rather than Vercel serverless functions."
-    }
-  ];
-
-  return (
-    <div className="container mx-auto px-4 py-16 max-w-3xl space-y-12">
-      
-      <div className="space-y-4 text-center">
-        <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <MessageCircleQuestion className="w-8 h-8 text-primary" />
-        </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Frequently Asked Questions</h1>
-        <p className="text-xl text-muted-foreground mx-auto">
-          Common queries regarding physiology-based liveness and our platform concept.
-        </p>
-      </div>
-
-      <Accordion type="single" collapsible className="w-full">
-        {faqs.map((faq, i) => (
-          <AccordionItem key={i} value={`item-${i}`} className="border-border/40">
-            <AccordionTrigger className="text-left font-medium text-lg hover:text-primary transition-colors">
-              {faq.q}
-            </AccordionTrigger>
-            <AccordionContent className="text-muted-foreground leading-relaxed">
-              {faq.a}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-
-    </div>
-  );
-}
+import type { Metadata } from "next";
+import { PageIntro } from "@/components/ProjectUI";
+export const metadata: Metadata = { title: "Frequently Asked Questions" };
+const faqs = [
+  { q: "What is BioAuth?", a: "BioAuth is a TED University CMPE 492 senior design project. Its research focus is a quality- and attack-aware engine that fuses one-to-one face verification, visual presentation attack detection and physiological evidence." },
+  { q: "Does a pulse prove that a capture is live?", a: "No. rPPG extracts pulse-related optical changes from facial video, but replayed or synthetic video can contain pulse-like patterns. The design treats physiology as one required evidence channel, alongside face, PAD and capture quality—not as independent proof of liveness or freshness." },
+  { q: "What is the difference between REJECT and RETRY?", a: "REJECT requires a reliable rejection reason, such as a qualified identity mismatch or strong attack evidence. RETRY means required evidence is missing, unreliable or inconclusive. Missing or unusable rPPG prevents acceptance but does not, by itself, prove an attack." },
+  { q: "Is the public simulation the actual biometric engine?", a: "No. The console is an earlier, illustrative scenario simulation with generated signals and scores. Its challenge-response logic is distinct from the current design report. It does not run face matching, PAD or real rPPG analysis, and it produces no measured research results." },
+  { q: "Where can I find the reports and backlog?", a: "The Reports page contains the four CMPE 491 reports, the CMPE 492 Low-Level Design Report v1 and planned deliveries. Each available PDF can be opened or downloaded. The Progress page contains semester milestones and the backlog publication archive; backlog files are still awaiting publication." },
+  { q: "Is the project production-ready?", a: "The project is in its design and implementation phase. Model thresholds, measured accuracy and runtime performance require validation. This site describes academic work and should not be used to authorize real transactions." },
+  { q: "What is planned for biometric data?", a: "The design keeps ordinary session frames transient, stores approved reference templates encrypted, and defines a separate temporary lifecycle for enrollment review evidence. These are planned system requirements. The public scenario simulation sends scenario settings, not camera frames, to its mock API." }
+];
+export default function FAQPage() { return <div className="site-container"><PageIntro number="06" label="QUESTIONS & CLARIFICATIONS" title="A little more context.">The project, its limitations and where to find the work.</PageIntro><div className="faq-list">{faqs.map(faq=><details key={faq.q}><summary>{faq.q}</summary><p>{faq.a}</p></details>)}</div></div>; }
