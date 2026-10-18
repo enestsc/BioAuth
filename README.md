@@ -3,41 +3,43 @@
 </p>
 
 <p align="center">
-  <a href="https://bioauth-deploy.vercel.app"><strong>Project website</strong></a>
+  <a href="#about-bioauth">About BioAuth</a>
   &nbsp; · &nbsp;
-  <a href="https://bioauth-deploy.vercel.app/technology">Research</a>
+  <a href="#verification-approach">Our approach</a>
   &nbsp; · &nbsp;
-  <a href="https://bioauth-deploy.vercel.app/reports">Reports</a>
+  <a href="#project-team">The team</a>
   &nbsp; · &nbsp;
-  <a href="https://bioauth-deploy.vercel.app/team">Our team</a>
+  <a href="#project-reports">Project reports</a>
 </p>
 
-## The project
+## About BioAuth
 
-**BioAuth** is a TED University Computer Engineering senior project exploring more reliable remote biometric verification. Its focus is a **quality- and attack-aware fusion engine** that considers facial identity, visual attack indicators and physiological evidence together.
+**BioAuth** is a biometric verification research project by four Computer Engineering students at **TED University**, developed through CMPE 491 and CMPE 492.
 
-The project investigates how these signals can support verification before sensitive digital actions, while giving a clear reason to accept, reject or request another capture.
+Our goal is to make remote identity verification more reliable by considering the quality and trustworthiness of the evidence behind a decision. BioAuth investigates a **quality- and attack-aware fusion engine** that brings together facial identity, presentation attack indicators and physiological signals.
 
-## Our approach
+The proposed system supports additional verification before sensitive digital actions. Its representative application covers reviewed account enrollment and step-up verification before a change to an account's payout destination.
 
-| Evidence | What it contributes |
+## Verification approach
+
+| Evidence | Contribution |
 | :--- | :--- |
-| **Face verification** | One-to-one comparison with an approved reference to assess identity. |
-| **Visual PAD** | Independent assessment of presentation attack indicators. |
-| **Physiological signals** | Pulse-related colour variations from facial video, analysed with rPPG methods. |
-| **Capture quality** | Context about lighting, motion and signal reliability. |
+| **Facial identity** | One-to-one comparison with an approved reference. |
+| **Visual presentation** | Independent assessment of presentation attack indicators. |
+| **Physiological signals** | Pulse-related colour variations in facial video, examined with remote photoplethysmography (rPPG). |
+| **Capture quality** | Context about lighting, motion and measurement reliability. |
 
-The proposed fusion policy evaluates the reliability and agreement of the available evidence. Its three outcomes make uncertainty explicit:
+The fusion policy considers how reliable these signals are and whether they agree. It supports three explainable outcomes:
 
-- **ACCEPT** · sufficient evidence supports verification
-- **REJECT** · reliable mismatch or attack evidence prevents verification
-- **RETRY** · another capture is needed to reach a supported decision
+- **ACCEPT** · usable evidence supports verification.
+- **REJECT** · reliable mismatch or attack evidence prevents verification.
+- **RETRY** · a fresh capture is needed to reach a supported decision.
 
-Our research examines the balance between security, genuine-user experience, retries and processing cost. Physiological signals are interpreted alongside identity, presentation and capture quality.
+The research compares fixed, quality-weighted and quality- and attack-aware policies to study the balance between security, genuine-user experience, retries and processing cost.
 
-## The team
+## Project team
 
-Four Computer Engineering students at **TED University**, working together through CMPE 491 and CMPE 492:
+**Computer Engineering · TED University**
 
 - **Esra Eda Kılıç**
 - **Enes Taşçı**
@@ -50,7 +52,7 @@ Four Computer Engineering students at **TED University**, working together throu
 
 ## Project reports
 
-The reports trace BioAuth from its initial proposal to the detailed design of the current system.
+Our reports document BioAuth's development from the initial problem definition to system architecture and detailed design.
 
 | Course | Document |
 | :--- | :--- |
@@ -60,11 +62,9 @@ The reports trace BioAuth from its initial proposal to the detailed design of th
 | CMPE 491 | [High-Level Design](public/reports/bioauth-high-level-design.pdf) |
 | CMPE 492 | [Low-Level Design · v1](public/reports/bioauth-low-level-design-v1.pdf) |
 
-The CMPE 492 Low-Level Design Report describes the current scope and policies. Earlier reports document the project's evolution.
-
 ---
 
 <p align="center">
-  <sub>Academic research prototype · Design and implementation in progress<br />
-  The website's interactive console uses simulated data; measured biometric performance has not yet been published.</sub>
+  <sub>TED University · Computer Engineering · CMPE 492<br />
+  Academic research prototype · Research and development in progress</sub>
 </p>
