@@ -9,14 +9,15 @@ import { Shield } from "lucide-react";
 
 export default function DemoPage() {
   return (
-    <div className="container mx-auto p-4 py-8 max-w-7xl flex flex-col gap-6">
+    <div className="site-container py-10 flex flex-col gap-6">
+      <aside className="simulation-notice"><strong>Illustrative simulation · earlier UI prototype.</strong> All signals, scores and decisions below are generated from the selected scenario. This console does not implement the current design report, perform biometric analysis or establish liveness. Camera access is optional.</aside>
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <Shield className="w-6 h-6 text-primary" />
           <h1 className="text-2xl font-bold tracking-tight">Interactive Simulation Console</h1>
         </div>
         <p className="text-muted-foreground text-sm max-w-3xl">
-          Test BioAuth's liveness logic against different spoofing vectors. Adjust the threat scenario and challenge requirement, and click "Start Analysis" to observe the mock response pipeline in action.
+          Explore generated responses for different scenarios. Initialize a session, select simulation parameters and run the example. These outputs are separate from the project's planned controlled evaluation.
         </p>
       </div>
 

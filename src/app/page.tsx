@@ -1,148 +1,44 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Activity, Fingerprint, Eye, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Activity, ScanFace, ShieldCheck, Layers3, FileText, GitBranch, ArrowDown } from "lucide-react";
+import { BiometricVisual } from "@/components/BiometricVisual";
+import { SectionHeading, DocumentList, TeamGrid, ResearchNote } from "@/components/ProjectUI";
+import { project } from "@/lib/project";
 
-export default function LandingPage() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col w-full h-full">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-24 pb-32 flex flex-col items-center justify-center text-center px-4">
-        <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background"></div>
-        <div className="relative z-10 max-w-4xl space-y-8">
-          <Badge className="px-3 py-1 bg-primary/20 text-primary border-primary/20 rounded-full font-medium text-xs tracking-wider uppercase mb-6 inline-flex">
-            Research Prototype
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
-            Identity Liveness Beyond <br className="hidden md:block"/> Blink and Head-Turn Checks
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Protect against AI-era spoofing with physiology-based liveness verification. BioAuth extracts remote photoplethysmography (rPPG) signals to confirm the presence of a live human subject.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Button asChild size="lg" className="h-12 px-8 text-base shadow-lg shadow-primary/25">
-              <Link href="/demo">
-                Try Interactive Demo
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="h-12 px-8 text-base border-border/60 hover:bg-muted/50">
-              <Link href="/technology">Explore Technology</Link>
-            </Button>
-          </div>
+    <>
+      <section className="hero-section site-container">
+        <div className="hero-copy">
+          <div className="eyebrow hero-eyebrow"><span className="small-square" /> TED UNIVERSITY <span className="eyebrow-separator">/</span> CMPE 492</div>
+          <div className="hero-status"><span className="status-dot" /> Senior design project <span>2026–2027</span></div>
+          <h1>Trust begins<br />with <span>living signals.</span></h1>
+          <p className="hero-description">Exploring biometric verification through the fusion of facial identity, visual attack detection and physiological evidence.</p>
+          <p className="hero-support">BioAuth is a senior research project investigating how signal quality and attack awareness can support more reliable verification decisions.</p>
+          <div className="hero-actions"><Link className="button button-primary" href="/reports">Explore project reports <ArrowUpRight size={17} /></Link><Link className="text-link" href="/technology">Our research <ArrowRight size={16} /></Link></div>
+          <div className="hero-footnote"><span className="tiny-line" /><span>Quality-aware. Attack-aware. Explainable by design.</span></div>
         </div>
+        <BiometricVisual />
+      </section>
+      <div className="project-strip"><div className="site-container strip-inner"><div><span className="strip-label">THE PROJECT</span><span>Biometric verification & security</span></div><div><span className="strip-label">CURRENT MILESTONE</span><span><span className="status-dot" /> Low-level design · v1 available</span></div><Link href="/progress">Follow our progress <ArrowUpRight size={16} /></Link></div></div>
+
+      <section className="section-space site-container" id="project">
+        <div className="overview-grid"><SectionHeading number="01" label="THE RESEARCH QUESTION" title="A familiar face is only part of the story." /><div className="overview-body"><p>Face matching asks <em>who</em> is in an image. It does not establish whether a capture comes from a person, a replay or synthetic media.</p><p>BioAuth investigates a quality- and attack-aware fusion engine that considers identity, presentation and physiology together—and requests another capture when the evidence is insufficient.</p><Link href="/technology" className="text-link">Understand the approach <ArrowRight size={16} /></Link></div></div>
+        <div className="principle-grid">{[
+          { icon: ScanFace, no: "01", title: "Identity evidence", text: "Compare a captured face with an approved reference using one-to-one verification." },
+          { icon: ShieldCheck, no: "02", title: "Presentation evidence", text: "Evaluate visual attack indicators independently from whether the face matches." },
+          { icon: Activity, no: "03", title: "Physiological evidence", text: "Assess pulse-related colour variations and their reliability with CHROM and POS." }
+        ].map(item => <article className="principle" key={item.no}><div className="principle-top"><item.icon size={26} strokeWidth={1.4} /><span>{item.no}</span></div><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
+        <div className="fusion-bar"><div><Layers3 size={22} /><strong>One evidence-aware decision</strong></div><span className="fusion-caption">Shared safety gates + versioned fusion policy</span><div className="decision-labels"><span>ACCEPT</span><span>REJECT</span><span>RETRY</span></div></div>
+        <p className="figure-caption">Research hypothesis: improve the trade-off between attack acceptance, genuine-user rejection, retries and latency. Results remain to be validated.</p>
       </section>
 
-      {/* Problem Section */}
-      <section className="py-20 bg-muted/20 border-t border-border/40">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight mb-4">The Limit of Visual Challenge-Response</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Advanced deepfakes, puppet animations, and high-fidelity replay attacks can easily bypass traditional visual tests like blinking or smiling.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="bg-card/50 border-border/40">
-              <CardContent className="pt-6">
-                <div className="bg-destructive/10 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                  <Fingerprint className="w-6 h-6 text-destructive" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">Synthetic Media</h3>
-                <p className="text-sm text-muted-foreground">Generative AI enables attackers to create convincing portraits that mimic visual responses perfectly.</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-card/50 border-border/40">
-              <CardContent className="pt-6">
-                <div className="bg-destructive/10 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                  <Eye className="w-6 h-6 text-destructive" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">Passive Spoofing</h3>
-                <p className="text-sm text-muted-foreground">Replay attacks using high-res tablet screens easily stress test basic 2D active liveness checks.</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-card/50 border-border/40">
-              <CardContent className="pt-6">
-                <div className="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
-                  <Activity className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">The Physiological Gap</h3>
-                <p className="text-sm text-muted-foreground">What synthetic media lacks is the hidden, natural physiological signal—a biometric heartbeat.</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+      <section className="reports-section section-space"><div className="site-container"><div className="section-heading-row"><SectionHeading number="02" label="PROJECT DOCUMENTATION" title="The work, documented." description="Design decisions, technical detail and course deliverables in one place." /><Link className="text-link" href="/reports">All reports <ArrowUpRight size={17} /></Link></div><DocumentList compact /><div className="reports-bottom"><span><FileText size={15} /> Public course deliverables · CMPE 492</span><Link href="/progress#backlog">TODO & backlog archive <ArrowRight size={15} /></Link></div></div></section>
 
-      {/* Solution Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="flex-1 space-y-6">
-              <h2 className="text-3xl font-bold tracking-tight">How BioAuth Enhances Trust</h2>
-              <p className="text-muted-foreground text-lg">
-                By performing a fusion of active challenge-response evaluation and passive physiological measurement, BioAuth provides an explainable, spoof-resilient layer of security.
-              </p>
-              <ul className="space-y-4 pt-4">
-                {[
-                  "Detect Face Region & Extract ROI",
-                  "Synthesize Sub-dermal Blood Flow Variations (rPPG)",
-                  "Filter Ambient Noise and Motion Artifacts",
-                  "Determine Signal Quality and Measure Confidence",
-                  "Output Fused Decision with Reason Codes"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 shrink-0" />
-                    <span className="text-foreground/90 font-medium">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex-1 w-full bg-card/30 border border-border/50 rounded-2xl p-8 relative overflow-hidden flex flex-col gap-6">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
-              
-              <div className="flex justify-between items-center text-sm font-mono border-b border-border/40 pb-4">
-                <span className="text-muted-foreground">Pipeline Status</span>
-                <span className="text-green-400">OPTIMAL</span>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg border border-border/40">
-                  <span className="text-sm font-medium">Extracting ROI</span>
-                  <span className="text-xs text-primary bg-primary/10 px-2 py-1 rounded">12ms</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg border border-border/40">
-                  <span className="text-sm font-medium">Spectrum Analysis</span>
-                  <span className="text-xs text-primary bg-primary/10 px-2 py-1 rounded">VDC-FFT</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg border border-border/40">
-                  <span className="text-sm font-medium">Confidence Scoring</span>
-                  <span className="text-xs text-green-400 font-bold">94.2%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="section-space site-container"><div className="milestone-feature"><div><div className="eyebrow"><span className="section-number">03</span> THE SEMESTER AHEAD</div><h2>From a detailed design<br />to a tested system.</h2><p>Follow the project through design refinement, implementation, controlled evaluation and the final demonstration.</p><Link className="text-link" href="/progress">View milestones & backlog <ArrowRight size={17} /></Link></div><div className="mini-timeline"><div className="mini-step current"><span className="timeline-dot" /><span className="mono-label">16 OCT</span><div><h3>Low-Level Design</h3><p>Version 1 available</p></div><span className="status-tag available">Published</span></div><div className="mini-step"><span className="timeline-dot" /><span className="mono-label">20 NOV</span><div><h3>Test Plan</h3><p>Evaluation methodology & test cases</p></div></div><div className="mini-step"><span className="timeline-dot" /><span className="mono-label">31 DEC</span><div><h3>Final Report</h3><p>Implementation & measured results</p></div></div><div className="mini-step"><span className="timeline-dot" /><span className="mono-label">JAN '27</span><div><h3>Presentation & Demo</h3><p>Exact date to be announced</p></div></div></div></div></section>
 
-      {/* Basic Banner */}
-      <section className="py-24 bg-primary/5 border-y border-border/40 relative overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-grid-white/5 opacity-10"></div>
-        <div className="container mx-auto px-4 max-w-4xl text-center relative z-10 space-y-8">
-          <Shield className="w-16 h-16 text-primary mx-auto" />
-          <h2 className="text-3xl md:text-4xl font-bold">Ready to test the simulation?</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Access the capstone demo console, select threat vectors, and observe how physiological signals impact the final liveness decision.
-          </p>
-          <Button asChild size="lg" className="h-14 px-10 text-lg shadow-xl shadow-primary/20">
-            <Link href="/demo">Launch Console</Link>
-          </Button>
-        </div>
-      </section>
-    </div>
+      <section className="team-section section-space"><div className="site-container"><div className="section-heading-row"><SectionHeading number="04" label="THE PEOPLE BEHIND THE PROJECT" title="Four students. A shared research goal." /><Link className="text-link" href="/team">Meet the team <ArrowUpRight size={17} /></Link></div><TeamGrid /><div className="supervisor-line"><span>SUPERVISED BY</span><strong>Dr. Ulaş Güleç</strong><span>Department of Computer Engineering · TED University</span></div></div></section>
+      <div className="site-container bottom-note"><ResearchNote /></div>
+      <section className="site-container project-next"><div><GitBranch size={23} /><p>Curious about the implementation?<span>Explore the source code and follow the project as it develops.</span></p></div><a className="text-link" href={project.repository} target="_blank" rel="noreferrer">View on GitHub <ArrowUpRight size={17} /></a><a className="back-to-top" href="#main-content" aria-label="Back to top"><ArrowDown size={19} /></a></section>
+    </>
   );
-}
-
-function Badge({ children, className }: { children: React.ReactNode, className: string }) {
-  return <span className={className}>{children}</span>;
 }
