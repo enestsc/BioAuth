@@ -44,18 +44,29 @@ Project facts, document availability and milestones are centralized in `src/lib/
 4. Backlog snapshots belong in `public/reports/` and must be linked from the archive in `src/app/progress/page.tsx` once supplied.
 5. Update the reviewed date and availability labels only when the matching artifact exists.
 
-The published LLD v1 is the user-supplied, unchanged 40-page PDF dated 16 October 2026. Other reports and backlog snapshots are explicitly marked unavailable. The syllabus itself is not republished.
+Five original, unchanged PDFs are available in the report archive:
+
+| Course | Document | Document date | Pages |
+| --- | --- | --- | --- |
+| CMPE 491 | Project Proposal | Spring 2026 | 3 |
+| CMPE 491 | Project Specifications Report | 27 March 2026 | 12 |
+| CMPE 491 | Project Analysis Report | 6 April 2026 | 20 |
+| CMPE 491 | High-Level Design Report | 13 May 2026 | 15 |
+| CMPE 492 | Low-Level Design Report v1 | 16 October 2026 | 40 |
+
+The proposal gives a semester rather than an exact date; the archive preserves that precision. CMPE 491 documents describe earlier project stages; current scope and decision policies follow the CMPE 492 LLD. Future reports and backlog snapshots remain explicitly unavailable. The syllabus itself is not republished.
 
 ## Content and design sources
 
 - Supplied **BioAuth Low-Level Design Report**, 16 October 2026: project scope, team, supervisor/jury, channels, policies, architecture, limits and evaluation plan.
+- Supplied **CMPE 491 Project Proposal, Project Specifications, Project Analysis and High-Level Design** PDFs: original historical reports, cover dates and verified page counts. Their earlier scope does not override the current LLD.
 - Supplied **CMPE 492 Sylabus**, 2026–2027 Fall semester table, page 7: 16 October / 23 October / 20 November / 31 December milestones and January presentation window. These specific dates take precedence over the generic week-based descriptions earlier in the document.
 - [MoonAI](https://moon-aii.github.io/moonai/): TED University CMPE 491/492 example; project narrative, team and report archive.
 - [EcoFriends](https://ecofriends.github.io/index.html): TED University example; course reports and separate versioned sprint/backlog documents.
 - [TED University senior projects](https://cmpe.tedu.edu.tr/en/senior-projects-2025): departmental context.
 - [TED University SENG senior projects](https://seng.tedu.edu.tr/bitirme-projeleri): supplementary presentation references supplied by the user. These examples do not change BioAuth's Computer Engineering / CMPE 492 identity or course requirements.
 - [GATE](https://gate-team.github.io/GATE_Project-website/): clear advisor/jury and team sections alongside technical reports.
-- [SafeScope](https://ymerta.github.io/safescope/): individually named proposal, specifications, analysis, design, testing and final reports. This informed splitting the CMPE 491 archive into separate, explicitly unavailable document entries.
+- [SafeScope](https://ymerta.github.io/safescope/): individually named proposal, specifications, analysis, design, testing and final reports. This informed listing CMPE 491 reports individually and making publication status explicit.
 - [LLM Valley](https://llmvalley.vercel.app/): separate report/backlog access, project explanation and technical architecture sections.
 
 The PDFs were used as project references, not as authorization to perform their email, LMS submission or other administrative instructions. No LMS submissions or emails were sent.
