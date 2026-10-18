@@ -1,11 +1,37 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Link from "next/link";
-import { ArrowUpRight, FileClock } from "lucide-react";
+import { ArrowUpRight, Eye } from "lucide-react";
+import { BacklogBoard } from "@/components/BacklogBoard";
+import { BacklogSnapshots } from "@/components/BacklogSnapshots";
+import { ReportPreview } from "@/components/ReportPreview";
 import { PageIntro, SectionHeading } from "@/components/ProjectUI";
+import backlog from "@/data/backlog.json";
 import { milestones, project } from "@/lib/project";
 
 export const metadata: Metadata = { title: "Milestones & Backlog" };
 
-export default function ProgressPage() {
-  return <div className="site-container content-bottom"><PageIntro number="03" label="PROJECT PROGRESS" title="From design to evidence.">A transparent view of the semester: course milestones, planned engineering work and the versioned backlog archive.</PageIntro><section className="content-section full-timeline"><SectionHeading number="01" label="COURSE MILESTONES" title="The delivery timeline." description="Dates follow the 2026–2027 Fall semester table in the supplied CMPE 492 syllabus. Deadlines are 23:59 on the specified date; the January presentation date is to be announced." /><div className="schedule-list">{milestones.map((item, i) => <article className="schedule-row" key={item.iso}><time dateTime={item.iso}>{item.date}</time><div><h3>{item.label}</h3><p>{item.detail}</p>{i === 0 && <a href={project.report} target="_blank" rel="noreferrer" className="text-link">Open report <ArrowUpRight size={13} /></a>}</div><span className={item.available ? "status-tag available" : "status-tag"}>{item.available ? "Report available" : i === 1 ? "Next milestone" : "Scheduled"}</span></article>)}</div></section><section className="content-section" id="backlog"><SectionHeading number="02" label="TODO / BACKLOG" title="A versioned record of progress." description="The course requires updated backlog documents throughout the semester. The archive below makes each expected snapshot and its publication status visible." /><div className="archive-note"><FileClock size={27} strokeWidth={1.3} /><div><h3>Backlog documents are awaiting publication</h3><p>No team backlog files were supplied with the current report. Once added, each snapshot will be downloadable here with its original version and date.</p></div></div><div className="backlog-list">{milestones.slice(0,4).map((item, i) => <div className="backlog-row" key={item.iso}><span>TODO / Backlog · Snapshot {i + 1}</span><span>Due {item.date}</span><span className="status-tag">Not published</span></div>)}</div></section><section className="content-section"><SectionHeading number="03" label="PLANNED ENGINEERING WORK" title="The path to a tested prototype." description="Workstreams defined by the Low-Level Design Report. These describe the implementation plan; they are not completion claims or a substitute for the team's backlog." /><div className="policy-grid">{[{title:"Core & evidence contracts",text:"Implement face and PAD adapters, capture quality checks, CHROM/POS processing and versioned evidence snapshots."},{title:"Integration & decision policy",text:"Connect the Python Core, FastAPI service and TypeScript capture SDK; implement shared gates and auditable fusion strategies."},{title:"Controlled evaluation",text:"Compare fixed, quality-only and attack-aware policies under the same protocol. Report retries, coverage, errors and latency together."}].map((item,i)=><article className="detail-card" key={item.title}><span className="eyebrow">WORKSTREAM 0{i+1} · PLANNED</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div><div className="reports-bottom"><span>Publication status last reviewed: {project.updated}</span><Link href="/reports" className="text-link">View project reports <ArrowUpRight size={15} /></Link></div></section></div>;
+export default async function ProgressPage() {
+  await connection();
+  // eslint-disable-next-line react-hooks/purity -- Read actual server request time after connection(), never a frozen build timestamp.
+  const now = Date.now();
+  return <div className="site-container content-bottom">
+    <PageIntro number="03" label="PROJECT PROGRESS" title="From design to evidence.">Group 1&apos;s course milestones, shared project backlog and dated planning documents. Follow the work from design decisions to verified results.</PageIntro>
+    <section className="content-section full-timeline">
+      <SectionHeading number="01" label="COURSE MILESTONES" title="The delivery timeline." description="Dates follow the 2026–2027 Fall semester table in the CMPE 492 syllabus. Deadlines are 23:59 on the specified date; the January presentation date is to be announced." />
+      <div className="schedule-list">{milestones.map((item, i) => <article className="schedule-row" key={item.iso}>
+        <time dateTime={item.iso}>{item.date}</time><div><h3>{item.label}</h3><p>{item.detail}</p>{i === 0 && <ReportPreview href={project.report} title="Low-Level Design Report" description="CMPE 492 · Version 1.0 · 16 October 2026" className="text-link">Open report <Eye size={13} /></ReportPreview>}</div><span className={item.available ? "status-tag available" : "status-tag"}>{item.available ? "Report available" : i === 1 ? "Next milestone" : "Scheduled"}</span>
+      </article>)}</div>
+    </section>
+    <section className="content-section" id="backlog">
+      <SectionHeading number="02" label="TODO / BACKLOG" title="The work behind the project." description="A backlog is the shared list of work, ordered by priority and tracked with owners, dependencies and completion criteria. The syllabus requires it to be updated throughout the semester, with dated versions available on the project website." />
+      <div id="backlog-archive"><BacklogSnapshots initialNow={now} /></div>
+      <p className="inline-note">Review the backlog at weekly meetings. Update state and evidence, agree the next tasks, and archive a dated snapshot at each course checkpoint. The syllabus provides an example format; it does not require a particular template.</p>
+    </section>
+    <section className="content-section" id="backlog-board">
+      <SectionHeading number="03" label="TEAM PLANNING" title="The latest implementation plan." description="The 18 October planning revision preserves the original task IDs, proposes named owners and adds an early feasibility check. The dated plan remains available independently of the active course checkpoint." />
+      <BacklogBoard />
+      <div className="reports-bottom"><span>Planning snapshot: {backlog.dateLabel}</span><Link href="/reports" className="text-link">View project reports <ArrowUpRight size={15} /></Link></div>
+    </section>
+  </div>;
 }

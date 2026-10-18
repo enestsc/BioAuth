@@ -1,0 +1,201 @@
+{
+  "version": "Planning revision 1",
+  "date": "2026-10-18",
+  "dateLabel": "18 October 2026",
+  "group": 1,
+  "assignmentStatus": "Proposed - pending team agreement",
+  "pdf": "/backlog/bioauth-backlog-planning-2026-10-18.pdf",
+  "csv": "/backlog/bioauth-backlog-planning-2026-10-18.csv",
+  "original": "/backlog/bioauth-backlog-v1-original.docx",
+  "members": [
+    { "name": "Enes Taşçı", "area": "API, platform integration and packaging" },
+    { "name": "Esra Eda Kılıç", "area": "rPPG, capture quality and evaluation data" },
+    { "name": "Batuhan Mert Korkmaz", "area": "Face verification, Visual PAD and fusion" },
+    { "name": "Ömer Taylan Alemdar", "area": "Capture UI, project coordination and test planning" }
+  ],
+  "tasks": [
+    {
+      "id": "B01", "title": "Review the six LLD design decisions", "priority": "P0", "status": "Review",
+      "owner": "Ömer Taylan Alemdar", "reviewer": "Esra Eda Kılıç", "target": "2026-10-23", "workstream": "Design and delivery", "dependsOn": [],
+      "reference": "LLD 1.1.3 and 3.15.2; ADR-01 to ADR-06",
+      "acceptance": "Record the team's review of mandatory usable rPPG, nullable evidence, review guards, camera-derived templates, the C-Q comparison and outcome denominators. Resolve advisor questions in the revision log.",
+      "evidence": "LLD v1 dated 16 October is available. Team/advisor acceptance is not recorded in this snapshot."
+    },
+    {
+      "id": "B02", "title": "Verify course submissions and backlog publication", "priority": "P0", "status": "Needs confirmation",
+      "owner": "Enes Taşçı", "reviewer": "Ömer Taylan Alemdar", "target": "2026-10-23", "workstream": "Design and delivery", "dependsOn": ["B01"],
+      "reference": "Syllabus pp. 1, 4 and 7",
+      "acceptance": "Check the 16 October delivery record and complete the 23 October delivery checklist: LMS, required email recipients, coordinator form and public report/backlog links. Record actual submission and publication dates separately.",
+      "evidence": "LLD v1 is publicly available. LMS/email/form submission is unconfirmed; a preparation date is not proof of timely submission."
+    },
+    {
+      "id": "B03", "title": "Revise LLD with advisor feedback", "priority": "P0", "status": "Planned",
+      "owner": "Ömer Taylan Alemdar", "reviewer": "Batuhan Mert Korkmaz", "target": "2026-10-23", "workstream": "Design and delivery", "dependsOn": ["B01", "B30"],
+      "reference": "LLD 3.14 and 3.15.2; syllabus p. 7",
+      "acceptance": "Produce LLD v2 with a dated change log. Resolve the web-first/native scope and inherited timing feasibility with the advisor; preserve the mandatory-rPPG safety rule.", "evidence": ""
+    },
+    {
+      "id": "B04", "title": "Create a reproducible service skeleton", "priority": "P0", "status": "Planned",
+      "owner": "Enes Taşçı", "reviewer": "Batuhan Mert Korkmaz", "target": "2026-10-23", "workstream": "Platform and security", "dependsOn": ["B01"],
+      "reference": "LLD 2 and 3.14; V2 19 and 20",
+      "acceptance": "A clean checkout starts the Core facade, API health route, database migration and experiment runner with pinned dependencies. Document the service boundaries and run a smoke check.", "evidence": ""
+    },
+    {
+      "id": "B05", "title": "Define evidence and decision contracts", "priority": "P0", "status": "Planned",
+      "owner": "Batuhan Mert Korkmaz", "reviewer": "Enes Taşçı", "target": "2026-10-23", "workstream": "Evidence and fusion", "dependsOn": ["B01"],
+      "reference": "LLD 1.2 and 3.1; ADR-01; TC-FUSION-01 to 08",
+      "acceptance": "Implement matching Python/TypeScript schemas for status, nullable values, score direction, reason codes and versioned snapshots. Contract tests distinguish unusable measurements, real zero values and technical errors.", "evidence": ""
+    },
+    {
+      "id": "B06", "title": "Qualify model artifacts and adapters", "priority": "P0", "status": "Planned",
+      "owner": "Batuhan Mert Korkmaz", "reviewer": "Esra Eda Kılıç", "target": "2026-10-23", "workstream": "Evidence and fusion", "dependsOn": ["B01"],
+      "reference": "LLD 3.4.2 and 3.5.4; TC-MATCH-01; TC-PAD-01",
+      "acceptance": "Record exact embedding/PAD weights, checksums, preprocessing, dimensions, score semantics and permitted use. Missing or incompatible manifests fail readiness; do not redistribute unapproved artifacts.", "evidence": ""
+    },
+    {
+      "id": "B07", "title": "Implement session lifecycle and access control", "priority": "P0", "status": "Planned",
+      "owner": "Enes Taşçı", "reviewer": "Ömer Taylan Alemdar", "target": "2026-10-30", "workstream": "Platform and security", "dependsOn": ["B04", "B05"],
+      "reference": "LLD 3.2; TC-AUDIT-01; TC-DASH-01",
+      "acceptance": "Enforce session ownership, expiry, allowed state transitions, cancellation, idempotent finalization and retry limits. Terminal sessions reject later writes and cross-user access.", "evidence": ""
+    },
+    {
+      "id": "B08", "title": "Build browser capture and bounded transport", "priority": "P0", "status": "Planned",
+      "owner": "Ömer Taylan Alemdar", "reviewer": "Enes Taşçı", "target": "2026-10-30", "workstream": "Capture and interfaces", "dependsOn": ["B05", "B07"],
+      "reference": "LLD 3.3.3 and 3.11; TC-INPUT-01; TC-QUALITY-02",
+      "acceptance": "Send versioned WSS packets with monotonic offsets, sequence and dimensions. Measure delivered FPS, gaps, backpressure and dropped frames; stop camera tracks and release buffers on every terminal path.", "evidence": ""
+    },
+    {
+      "id": "B09", "title": "Implement landmarks ROI and capture quality", "priority": "P0", "status": "Planned",
+      "owner": "Esra Eda Kılıç", "reviewer": "Batuhan Mert Korkmaz", "target": "2026-10-30", "workstream": "Evidence and fusion", "dependsOn": ["B05", "B06"],
+      "reference": "LLD 3.3; FR-01 to FR-03 and FR-08; TC-FACE-01; TC-ROI-01",
+      "acceptance": "Track one face with stable forehead/cheek ROIs and timed RGB traces. Detect invalid bounds, face changes, blur, exposure and movement. Test first with controlled fixtures, then browser captures from B08.", "evidence": ""
+    },
+    {
+      "id": "B10", "title": "Implement face comparison and template storage", "priority": "P0", "status": "Planned",
+      "owner": "Batuhan Mert Korkmaz", "reviewer": "Enes Taşçı", "target": "2026-11-06", "workstream": "Evidence and fusion", "dependsOn": ["B05", "B06", "B09"],
+      "reference": "LLD 3.4; ADR-06; TC-MATCH-01; TC-ENROLL-01",
+      "acceptance": "Compare compatible embeddings from quality-selected frames. Encrypt candidate/active templates, preserve camera-capture provenance and model versions, and prevent candidate templates from authorizing returning users.", "evidence": ""
+    },
+    {
+      "id": "B11", "title": "Integrate Visual PAD and temporal aggregation", "priority": "P0", "status": "Planned",
+      "owner": "Batuhan Mert Korkmaz", "reviewer": "Esra Eda Kılıç", "target": "2026-11-06", "workstream": "Evidence and fusion", "dependsOn": ["B06", "B09"],
+      "reference": "LLD 3.5; V2-FR-11; TC-PAD-01 to 03",
+      "acceptance": "Run the qualified PAD adapter with exact preprocessing and deterministic sampling. Report median, lower quantile, spread and eligible counts. Separate inference errors and unusable crops from qualified attack evidence.", "evidence": ""
+    },
+    {
+      "id": "B12", "title": "Implement POS CHROM and signal qualification", "priority": "P0", "status": "Planned",
+      "owner": "Esra Eda Kılıç", "reviewer": "Batuhan Mert Korkmaz", "target": "2026-11-06", "workstream": "Evidence and fusion", "dependsOn": ["B05", "B09", "B30"],
+      "reference": "LLD 3.6; FR-04 to FR-06; TC-RPPG-01 to 04",
+      "acceptance": "Validate timed RGB, POS/CHROM, the configured 0.7-4 Hz filter and Welch spectrum with known signals and permitted reference data. Qualify duration, SNR and agreement; missing/unusable BPM remains null.", "evidence": ""
+    },
+    {
+      "id": "B13", "title": "Qualify transported physiological evidence", "priority": "P0", "status": "Planned",
+      "owner": "Esra Eda Kılıç", "reviewer": "Ömer Taylan Alemdar", "target": "2026-11-13", "workstream": "Evaluation and release", "dependsOn": ["B08", "B12", "B30"],
+      "reference": "LLD 3.3.3 and 3.6.4; TC-RPPG-02 to 04; TC-QUALITY-02",
+      "acceptance": "Compare the browser transport with a lossless research capture. Measure usable duration, timestamp gaps and compression effects before freezing minimum-rPPG criteria; record any proposed timing/profile revision.", "evidence": ""
+    },
+    {
+      "id": "B14", "title": "Enforce enrollment and manual review guards", "priority": "P0", "status": "Planned",
+      "owner": "Enes Taşçı", "reviewer": "Batuhan Mert Korkmaz", "target": "2026-11-19", "workstream": "Platform and security", "dependsOn": ["B07", "B10", "B11", "B12", "B15"],
+      "reference": "LLD 3.8; ADR-02 and ADR-06; TC-ENROLL-01 to 04",
+      "acceptance": "Activate an account/template only after biometric ACCEPT and an authorized review bound to the same candidate and snapshot. Test stale approvals, duplicate actions and prohibited overrides of REJECT/RETRY.", "evidence": ""
+    },
+    {
+      "id": "B15", "title": "Implement the common safety gate and L1", "priority": "P0", "status": "Planned",
+      "owner": "Batuhan Mert Korkmaz", "reviewer": "Esra Eda Kılıç", "target": "2026-11-13", "workstream": "Evidence and fusion", "dependsOn": ["B10", "B11", "B12"],
+      "reference": "LLD 3.7.2 and 3.7.3; ADR-05; TC-FUSION-01 to 08",
+      "acceptance": "Test reliable-rejection precedence, technical failures, missing evidence and mandatory usable rPPG. Every actionable acceptance passes the shared gate; L1 uses a versioned validation-calibrated fixed policy.", "evidence": ""
+    },
+    {
+      "id": "B16", "title": "Implement quality-only C-Q and attack-aware L2", "priority": "P0", "status": "Planned",
+      "owner": "Batuhan Mert Korkmaz", "reviewer": "Esra Eda Kılıç", "target": "2026-11-19", "workstream": "Evidence and fusion", "dependsOn": ["B15"],
+      "reference": "LLD 3.7.3 to 3.7.5; ADR-03; TC-FUSION-05 and 08",
+      "acceptance": "Compare C-Q and L2 on identical snapshots and common gates. Unit-test PAD temporal instability, physiology disagreement and PAD suspicion with pulse. Record pattern rule versions and their cost in Retry/coverage.", "evidence": ""
+    },
+    {
+      "id": "B17", "title": "Bind verification to one sensitive action", "priority": "P0", "status": "Planned",
+      "owner": "Enes Taşçı", "reviewer": "Ömer Taylan Alemdar", "target": "2026-11-27", "workstream": "Platform and security", "dependsOn": ["B07", "B14", "B15"],
+      "reference": "LLD 3.9; V2-FR-13; TC-DEMO-01",
+      "acceptance": "Bind successful verification to its owner, intended payout-destination change, digest and expiry. Atomically consume it once; test changed actions, expired/replayed results and concurrent double execution.", "evidence": ""
+    },
+    {
+      "id": "B18", "title": "Connect user guidance and authorized admin views", "priority": "P1", "status": "Planned",
+      "owner": "Ömer Taylan Alemdar", "reviewer": "Enes Taşçı", "target": "2026-11-27", "workstream": "Capture and interfaces", "dependsOn": ["B08", "B14", "B16"],
+      "reference": "LLD 3.10 and 3.11; V2-FR-15; TC-DASH-01 to 03",
+      "acceptance": "Render real session events, quality guidance, decisions and review state. Separate ordinary user/admin fields from consented research diagnostics, and verify authorization before event serialization.", "evidence": ""
+    },
+    {
+      "id": "B19", "title": "Prepare permitted data and consent protocol", "priority": "P0", "status": "Planned",
+      "owner": "Esra Eda Kılıç", "reviewer": "Ömer Taylan Alemdar", "target": "2026-10-30", "workstream": "Evaluation and release", "dependsOn": ["B01"],
+      "reference": "LLD 3.12 and 3.13; V2 17 and 18",
+      "acceptance": "Record dataset permissions, consent scope, storage/deletion rules and a fallback if access is delayed. Distinguish PAD-labelled data, physiological reference data and a paired multimodal corpus; none substitutes for the others.", "evidence": ""
+    },
+    {
+      "id": "B20", "title": "Write the Test Plan and split manifest", "priority": "P0", "status": "Planned",
+      "owner": "Ömer Taylan Alemdar", "reviewer": "Esra Eda Kılıç", "target": "2026-11-20", "workstream": "Design and delivery", "dependsOn": ["B05", "B19"],
+      "reference": "LLD 3.13 and 3.15; syllabus pp. 3 and 7",
+      "acceptance": "Define test IDs, fixtures/data, expected results, environments and accountable reviewers. Freeze subject/source separation and device holdouts where feasible; keep physical PAD and injection tests separate and specify all outcome denominators.", "evidence": ""
+    },
+    {
+      "id": "B21", "title": "Build paired evidence tables and honest metrics", "priority": "P1", "status": "Planned",
+      "owner": "Esra Eda Kılıç", "reviewer": "Batuhan Mert Korkmaz", "target": "2026-11-27", "workstream": "Evaluation and release", "dependsOn": ["B11", "B12", "B16", "B20"],
+      "reference": "LLD 3.13; ADR-04; TC-AUDIT-01; V2 21",
+      "acceptance": "Run C, C-Q and D on the same evidence and splits, with A/B limited to diagnostic controls. Count ACCEPT, REJECT, RETRY and technical outcomes over initiated attempts; report coverage and capture-to-decision latency separately from cached-policy cost.", "evidence": ""
+    },
+    {
+      "id": "B22", "title": "Assess the L3 advisory experiment", "priority": "P1", "status": "Planned",
+      "owner": "Esra Eda Kılıç", "reviewer": "Batuhan Mert Korkmaz", "target": "2026-12-04", "workstream": "Evaluation and release", "dependsOn": ["B21"],
+      "reference": "LLD 3.7.6; V2 9 and 21",
+      "acceptance": "If the paired training data is adequate, fit regularized logistic regression with training-only preprocessing and validation-only calibration. Preserve all safety holds; otherwise record L3 as unavailable and report the limitation. XGBoost remains optional.", "evidence": ""
+    },
+    {
+      "id": "B23", "title": "Freeze profiles and run the final evaluation", "priority": "P0", "status": "Planned",
+      "owner": "Esra Eda Kılıç", "reviewer": "Ömer Taylan Alemdar", "target": "2026-12-11", "workstream": "Evaluation and release", "dependsOn": ["B13", "B20", "B21", "B22"],
+      "reference": "LLD 3.13 and 3.14; TC-AUDIT-01",
+      "acceptance": "Record the L3 availability decision, then freeze model, capture, policy and calibration manifests before opening final labels. Produce paired policy results, per-species attack outcomes, Retry/coverage, uncertainty and p50/p95 latency without retuning on test results.", "evidence": ""
+    },
+    {
+      "id": "B24", "title": "Verify security privacy and failure handling", "priority": "P0", "status": "Planned",
+      "owner": "Ömer Taylan Alemdar", "reviewer": "Enes Taşçı", "target": "2026-12-11", "workstream": "Platform and security", "dependsOn": ["B14", "B17", "B18"],
+      "reference": "LLD 3.8 to 3.12; TC-ENROLL-01 to 04; TC-DEMO-01; TC-DASH-01 to 03",
+      "acceptance": "Verify cross-user isolation, review override prevention, single consumption, cancellation/expiry cleanup and retention. Confirm ordinary interfaces expose no raw frames, embeddings or unauthorized research diagnostics.", "evidence": ""
+    },
+    {
+      "id": "B25", "title": "Align the public project presentation with V2", "priority": "P1", "status": "Complete",
+      "owner": "Enes Taşçı", "reviewer": "Ömer Taylan Alemdar", "target": "2026-10-18", "workstream": "Capture and interfaces", "dependsOn": [],
+      "reference": "LLD 3.14.1; public project presentation",
+      "acceptance": "Present the current scope, academic reports, team and evaluation plan; label the earlier scenario console as simulated. This item covers the public presentation, not the operational biometric engine or live admin application.",
+      "evidence": "BioAuth master commit 5381287 and the released project website, reviewed 18 October 2026. Proposed owners do not establish past individual contribution."
+    },
+    {
+      "id": "B26", "title": "Package Core SDK and a clean integration", "priority": "P1", "status": "Planned",
+      "owner": "Enes Taşçı", "reviewer": "Batuhan Mert Korkmaz", "target": "2026-12-18", "workstream": "Evaluation and release", "dependsOn": ["B06", "B23", "B24"],
+      "reference": "LLD 3.14.4; V2-FR-17; TC-PACK-01 to 03",
+      "acceptance": "Pass a clean-environment build and sample integration with pinned dependencies, migrations, allowed model artifacts and notices. Prepare versioned Python/TypeScript packages without biometric data or secrets; confirm names/rights before registry publication.", "evidence": ""
+    },
+    {
+      "id": "B27", "title": "Assemble the final report and team demonstration", "priority": "P0", "status": "Planned",
+      "owner": "Ömer Taylan Alemdar", "reviewer": "Esra Eda Kılıç", "target": "2026-12-31", "workstream": "Design and delivery", "dependsOn": ["B23", "B24", "B26"],
+      "reference": "Syllabus pp. 3, 4 and 7; LLD 3.15",
+      "acceptance": "Report actual architecture, test-ID pass/fail evidence, measured results and limitations. Include all four members in the presentation, rehearse within 25 minutes and prepare the source/demo materials for the January date announced by the course.", "evidence": ""
+    },
+    {
+      "id": "B28", "title": "Explore a dynamic light challenge", "priority": "P2", "status": "Deferred",
+      "owner": null, "reviewer": null, "target": null, "workstream": "Future scope", "dependsOn": ["B23"],
+      "reference": "LLD 3.14.4; V2-FR-16; TC-CHAL-01 to 02",
+      "acceptance": "Require a separate scope decision, fresh acquisition protocol and tests for interference with rPPG before implementation. Do not infer challenge results from existing recordings.", "evidence": "Outside the committed first implementation."
+    },
+    {
+      "id": "B29", "title": "Explore native capture or deep rPPG", "priority": "P2", "status": "Deferred",
+      "owner": null, "reviewer": null, "target": null, "workstream": "Future scope", "dependsOn": ["B23"],
+      "reference": "LLD 3.14.4; V2 4 and 19",
+      "acceptance": "Consider native capture and deep-rPPG as separate extensions after core evaluation and an explicit capacity/scope review. Keep OCR, NFC and document-authenticity models outside the initial scope.", "evidence": "No active owner or delivery promise."
+    },
+    {
+      "id": "B30", "title": "Check short-window and transport feasibility early", "priority": "P0", "status": "Planned",
+      "owner": "Esra Eda Kılıç", "reviewer": "Enes Taşçı", "target": "2026-10-23", "workstream": "Evidence and fusion", "dependsOn": [],
+      "reference": "LLD 3.3.3, 3.6.4 and 3.14.3",
+      "acceptance": "Use a small reproducible signal/capture spike to expose the five-second window, natural frequency resolution, gap and processing-budget risks before full integration. Bring feasibility findings or unresolved risks to LLD v2 review; B13 later performs full qualification.", "evidence": "Added in the 18 October planning revision to surface a critical dependency earlier."
+    }
+  ]
+}
