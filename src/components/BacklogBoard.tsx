@@ -22,10 +22,10 @@ export function BacklogBoard() {
   );
 
   return <>
-    <div className="backlog-proposal"><UsersRound size={24} strokeWidth={1.4} aria-hidden="true" /><div><h3>One project backlog. Four proposed owners.</h3><p>Group {backlog.group} · {backlog.dateLabel}. Assignments, reviewers and internal targets are a planning proposal awaiting team agreement. This snapshot records available evidence; it does not confirm course submission.</p></div></div>
+    <div className="backlog-proposal"><UsersRound size={24} strokeWidth={1.4} aria-hidden="true" /><div><h3>Group {backlog.group} · Implementation backlog</h3><p>Proposed team responsibilities and project priorities · Updated {backlog.dateLabel}.</p></div></div>
     <div className="backlog-owners">{backlog.members.map(member => <article key={member.name}><span className="eyebrow">PROPOSED RESPONSIBILITY</span><h3>{member.name}</h3><p>{member.area}</p></article>)}</div>
     <div className="backlog-summary" aria-label="Backlog snapshot summary">{["Planned", "Review", "Needs confirmation", "Complete", "Deferred"].map(label => <div key={label}><strong>{backlog.tasks.filter(task => task.status === label).length}</strong><span>{label}</span></div>)}</div>
-    <p className="backlog-caption">P0 · core correctness / course delivery &nbsp; P1 · integration / evaluation / packaging &nbsp; P2 · future scope. Counts describe backlog items, not an implementation completion percentage.</p>
+    <p className="backlog-caption">P0 · Core implementation &nbsp; P1 · Integration and evaluation &nbsp; P2 · Future work</p>
     <div className="backlog-filters">
       <label className="backlog-search"><span>Search tasks</span><span className="backlog-search-input"><Search size={16} aria-hidden="true" /><input type="search" placeholder="Task, requirement or test ID" value={query} onChange={event => setQuery(event.target.value)} /></span></label>
       <label><span>Proposed owner</span><select value={owner} onChange={event => setOwner(event.target.value)}><option>All members</option>{backlog.members.map(member => <option key={member.name}>{member.name}</option>)}<option>Unassigned</option></select></label>
@@ -39,6 +39,5 @@ export function BacklogBoard() {
       <details><summary>Acceptance criteria &amp; traceability</summary><p><strong>Done when:</strong> {task.acceptance}</p><p><strong>Depends on:</strong> {task.dependsOn.length ? task.dependsOn.join(", ") : "No prerequisite tasks"}</p><p><strong>Design / tests:</strong> {task.reference}</p>{task.evidence && <p><strong>Evidence / record:</strong> {task.evidence}</p>}</details>
     </article>)}</div>
     {filtered.length === 0 && <div className="backlog-empty"><p>No tasks match these filters.</p><button type="button" className="text-link" onClick={() => { setOwner("All members"); setStatus("All statuses"); setQuery(""); }}>Reset filters <ArrowUpRight size={14} /></button></div>}
-    <p className="inline-note">The owner coordinates delivery; the reviewer checks the evidence. Complete requires the acceptance criteria plus a commit, test result or reviewed artifact. Proposed ownership does not establish past individual contribution. Deferred work has no current delivery promise.</p>
   </>;
 }

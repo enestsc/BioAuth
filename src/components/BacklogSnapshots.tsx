@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowDownToLine, Eye, FileClock } from "lucide-react";
+import { Eye, FileClock } from "lucide-react";
 import { ReportPreview } from "@/components/ReportPreview";
 import { activeSnapshotIndex, nextSnapshotRefreshDelay } from "@/lib/backlog-schedule";
 import { milestones } from "@/lib/project";
@@ -39,29 +39,28 @@ export function BacklogSnapshots({ initialNow }: { initialNow: number }) {
   return <>
     <div className="snapshot-current" aria-live="polite">
       <FileClock size={22} strokeWidth={1.4} aria-hidden="true" />
-      <div><strong>{activeIndex < 0 ? "All course backlog deadlines have passed" : `Active snapshot: SS${activeIndex + 1}`}</strong><p>{activeIndex < 0 ? "All four checkpoints remain accessible in the archive." : `Due ${snapshots[activeIndex].date} at 23:59 · Turkey time (UTC+03:00)`}</p></div>
+      <div><strong>{activeIndex < 0 ? "Backlog archive" : `Current snapshot: SS${activeIndex + 1}`}</strong><p>{activeIndex < 0 ? "Explore the semester backlog documents." : `Due ${snapshots[activeIndex].date}`}</p></div>
     </div>
     <div className="snapshot-selector" role="group" aria-label="Backlog snapshots">
       {snapshots.map((snapshot, index) => {
         const future = activeIndex >= 0 && index > activeIndex;
         const active = index === activeIndex;
         return <button type="button" key={snapshot.iso} id={`snapshot-selector-${index + 1}`} disabled={future} aria-pressed={selectedIndex === index} aria-controls="snapshot-document" data-current={active} onClick={() => setSelection({ period: activeIndex, index })}>
-          <span className="snapshot-number">SS{index + 1}</span><strong>Snapshot {index + 1}</strong><span className="snapshot-due">Due {snapshot.date}</span><span className={active ? "status-tag available" : "status-tag"}>{active ? "Active" : future ? "Upcoming" : "Past checkpoint"}</span>
+          <span className="snapshot-number">SS{index + 1}</span><strong>Snapshot {index + 1}</strong><span className="snapshot-due">Due {snapshot.date}</span><span className={active ? "status-tag available" : "status-tag"}>{active ? "Current" : future ? "Upcoming" : "Archive"}</span>
         </button>;
       })}
     </div>
     <section className="snapshot-document" id="snapshot-document" aria-labelledby={`snapshot-selector-${selectedIndex + 1}`}>
       <div className="eyebrow">SNAPSHOT {selectedIndex + 1} · {selected.label}</div>
       {selectedIndex === 0 ? <>
-        <h3>The original backlog</h3><p>The original v1 was prepared on 15 October 2026 for the 16 October checkpoint. This role-based document is preserved unchanged; its preparation date does not confirm course submission.</p>
-        <a href={backlog.original} download className="text-link">Download original DOCX <ArrowDownToLine size={15} /></a>
+        <h3>Initial project backlog</h3><p>The first implementation roadmap, covering project priorities, milestones and delivery criteria. Version 1 · 15 October 2026.</p>
+        <ReportPreview href={backlog.original} title="BioAuth TODO and Backlog" description="CMPE 492 · Group 1 · Version 1 · 15 October 2026" className="text-link">View document <Eye size={15} /></ReportPreview>
       </> : selectedIndex === 1 ? <>
-        <h3>Proposed team backlog</h3><p>The 18 October planning revision supports the 23 October checkpoint. Thirty items include proposed owners, reviewers, targets and LLD/test references. Team agreement and course submission remain separate records.</p>
-        <div className="backlog-download-links"><ReportPreview href={backlog.pdf} title="BioAuth Project Backlog" description="CMPE 492 · Group 1 · Planning revision · 18 October 2026" className="text-link">Open PDF <Eye size={15} /></ReportPreview><a href={backlog.csv} download className="text-link">Editable CSV <ArrowDownToLine size={15} /></a></div>
+        <h3>Team implementation plan</h3><p>A shared roadmap for system development, integration and evaluation. Updated 18 October 2026.</p>
+        <div className="backlog-download-links"><ReportPreview href={backlog.pdf} title="BioAuth Project Backlog" description="CMPE 492 · Group 1 · 18 October 2026" className="text-link">View document <Eye size={15} /></ReportPreview><ReportPreview href={backlog.csv} title="BioAuth Task List" description="CMPE 492 · Group 1 · 30 work items · 18 October 2026" className="text-link">View task list <Eye size={15} /></ReportPreview></div>
       </> : <>
-        <h3>Snapshot document awaiting publication</h3><p>A dated backlog document has not been published for this checkpoint. New versions appear here when added; the calendar does not create or submit a new backlog version.</p>
+        <h3>Coming soon</h3><p>The backlog document for this milestone will be available here.</p>
       </>}
     </section>
-    <p className="inline-note">The next snapshot becomes active after the previous deadline ends at 23:59 in Turkey. Earlier snapshots stay accessible; future snapshots unlock in order. Calendar status and document availability are tracked separately.</p>
   </>;
 }

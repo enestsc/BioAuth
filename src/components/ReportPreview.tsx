@@ -1,8 +1,12 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
+import dynamic from "next/dynamic";
 import { Dialog } from "radix-ui";
-import { ArrowDownToLine, ArrowUpRight, FileText, X } from "lucide-react";
+import { ArrowDownToLine, ArrowUpRight, FileText, LoaderCircle, X } from "lucide-react";
+import { TextDocumentReader } from "@/components/documents/TextDocumentReader";
+
+const PdfReader = dynamic(() => import("@/components/documents/PdfReader").then(module => module.PdfReader), { ssr: false, loading: () => <p className="document-reader-loading" role="status"><LoaderCircle size={20} className="reader-spinner" aria-hidden="true" />Loading document…</p> });
 
 type ReportPreviewProps = {
   href: string;
@@ -15,6 +19,7 @@ type ReportPreviewProps = {
 
 export function ReportPreview({ href, title, description = "BioAuth project documentation", className = "", label, children }: ReportPreviewProps) {
   const closeButton = useRef<HTMLButtonElement>(null);
+  const format = href.endsWith(".docx") ? "docx" : href.endsWith(".csv") ? "csv" : "pdf";
 
   return <Dialog.Root>
     <Dialog.Trigger asChild>
@@ -28,16 +33,14 @@ export function ReportPreview({ href, title, description = "BioAuth project docu
           <Dialog.Close asChild><button type="button" className="icon-button report-preview-close" aria-label="Close document preview" ref={closeButton}><X size={20} aria-hidden="true" /></button></Dialog.Close>
         </header>
         <div className="report-preview-toolbar">
-          <span className="report-preview-format"><FileText size={15} aria-hidden="true" />PDF document</span>
+          <span className="report-preview-format"><FileText size={15} aria-hidden="true" />{format.toUpperCase()} document</span>
           <div className="report-preview-actions">
-            <a href={href} target="_blank" rel="noopener noreferrer" className="report-preview-action">Open in new tab <ArrowUpRight size={15} aria-hidden="true" /></a>
+            {format === "pdf" && <a href={href} target="_blank" rel="noopener noreferrer" className="report-preview-action">Open in new tab <ArrowUpRight size={15} aria-hidden="true" /></a>}
             <a href={href} download className="report-preview-action">Download <ArrowDownToLine size={15} aria-hidden="true" /></a>
           </div>
         </div>
         <div className="report-preview-document">
-          <object data={href} type="application/pdf" aria-label={title} title={title}>
-            <div className="report-preview-fallback"><FileText size={36} strokeWidth={1.3} aria-hidden="true" /><h3>Open this document to continue reading.</h3><p>PDF preview is unavailable in this browser. You can open the report in a new tab or download a copy.</p><a href={href} target="_blank" rel="noopener noreferrer" className="button button-primary">Open in new tab <ArrowUpRight size={16} aria-hidden="true" /></a></div>
-          </object>
+          {format === "pdf" ? <PdfReader href={href} /> : <TextDocumentReader href={href} format={format} />}
         </div>
       </Dialog.Content>
     </Dialog.Portal>

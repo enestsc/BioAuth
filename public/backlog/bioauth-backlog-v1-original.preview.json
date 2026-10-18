@@ -1,0 +1,615 @@
+{
+  "blocks": [
+    {
+      "kind": "paragraph",
+      "style": "Subtitle",
+      "text": "TED UNIVERSITY"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Subtitle",
+      "text": "CMPE 492 Senior Design Project II"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Title",
+      "text": "BioAuth TODO and Backlog"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Version 1 | 15 October 2026 | First delivery: 16 October 2026"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "This backlog translates the BioAuth V2 low-level design into implementation and verification work. The existing public website is an earlier prototype. Actual backend completion and individual ownership have not been confirmed; implementation items are therefore recorded as Planned, and ownership is expressed as a proposed role. Team assignment and effort estimates are set during sprint planning."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "Status and planning conventions"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Planned: work is specified but completion is unverified. Review: a deliverable is prepared and awaits team/advisor review. Deferred: excluded from the initial implementation. Priority P0 blocks correctness or the first working verification; P1 supports evaluation and delivery; P2 is an extension. Dates below are proposed internal targets except the course deadlines."
+    },
+    {
+      "kind": "table",
+      "rows": [
+        [
+          "Milestone",
+          "Date",
+          "Exit condition"
+        ],
+        [
+          "LLD v1 and Backlog v1",
+          "16 Oct 2026",
+          "Team review, PDF delivery and project-site publication."
+        ],
+        [
+          "LLD v2 and Backlog update",
+          "23 Oct 2026",
+          "Advisor feedback incorporated and scope changes recorded."
+        ],
+        [
+          "Working core and enrollment",
+          "6 Nov 2026",
+          "Real evidence contracts, physiological gate and review activation work."
+        ],
+        [
+          "Fusion and live integration",
+          "19 Nov 2026",
+          "L1/C-Q/L2 and authorized event flow execute on real inputs."
+        ],
+        [
+          "Test Plan and Backlog",
+          "20 Nov 2026",
+          "Test procedures, splits, responsibilities and denominators approved."
+        ],
+        [
+          "Frozen evaluation profile",
+          "11 Dec 2026",
+          "Thresholds/models fixed before final test; L3 assessed if data supports it."
+        ],
+        [
+          "Final report and Backlog",
+          "31 Dec 2026",
+          "Measured results, limitations, reproducible installation and updated documentation."
+        ],
+        [
+          "Demo",
+          "4–17 Jan 2027, TBA",
+          "Recorded/live demonstration materials ready for announced date."
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "Required delivery actions"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "For LLD: upload the PDF to LMS, email the supervisor and jury, complete the coordinator form and publish the report on the project site. Publish the backlog version on the site. These submission actions remain team tasks; preparing these files does not perform submission."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 1",
+      "text": "Implementation foundation"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B01 Review LLD v1 and six accepted decisions"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Review | Target: 16 Oct | Proposed owner: Design lead / team | Depends on: None"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Confirm rPPG gate, template provenance, statuses, review guard, C-Q and reporting."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B02 Submit LLD and Backlog and update report links"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 16 Oct | Proposed owner: Delivery owner | Depends on: B01"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: All syllabus destinations completed; public links tested."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B03 Record advisor feedback and issue LLD v2"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 23 Oct | Proposed owner: Design lead | Depends on: B01"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Resolve Android deferral and timing feasibility; revised decisions traceable."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B04 Create reproducible repository and service skeleton"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 23 Oct | Proposed owner: Platform role | Depends on: B01"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Clean clone starts web/API/DB; migrations and test runner operate."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B05 Implement evidence and decision contracts"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 23 Oct | Proposed owner: Core role | Depends on: B01"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Statuses, null values, score direction and version validation tested."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B06 Select model artifacts and record licenses"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 23 Oct | Proposed owner: CV role | Depends on: B01"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Weight hashes, preprocessing and usage conditions in manifests."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B07 Build session lifecycle and authenticated routes"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 30 Oct | Proposed owner: Backend role | Depends on: B04,B05"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Ownership, expiry, finalize idempotency and terminal states tested."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B08 Implement SDK capture and bounded transport"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 30 Oct | Proposed owner: Frontend role | Depends on: B07"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Actual FPS/gaps/drop counts recorded; camera stop and disconnect handled."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B09 Implement landmarks, ROI and input quality"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 30 Oct | Proposed owner: CV role | Depends on: B06,B08"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Single-face windows and stable bounded ROIs; quality guidance emitted."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B10 Implement face comparison and template storage"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 6 Nov | Proposed owner: CV/backend roles | Depends on: B05,B06,B09"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Compatible embedding comparison; encrypted inactive/active templates; no client exposure."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 1",
+      "text": "Verification and integration"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B11 Implement Visual PAD adapter and aggregation"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 6 Nov | Proposed owner: CV role | Depends on: B06,B09"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Real inference, exact preprocessing, video statistics and failure status tested."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B12 Implement CHROM/POS and spectrum analysis"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 6 Nov | Proposed owner: Signal role | Depends on: B05,B09"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Known-signal and eligible dataset checks; invalid windows return unavailable results."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B13 Qualify capture transport and rPPG usability"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 13 Nov | Proposed owner: Signal/frontend roles | Depends on: B08,B12"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Compare transported vs lossless signals; document duration, gaps and quality limits."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B14 Implement enrollment and reviewer guards"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 6 Nov | Proposed owner: Backend role | Depends on: B07,B10,B11,B12"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: No activation without biometric ACCEPT and reviewer approval; stale cases fail."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B15 Implement common safety gate and L1"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 13 Nov | Proposed owner: Core role | Depends on: B10,B11,B12"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Missing rPPG never accepts; reliable rejection precedence and runtime errors tested."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B16 Implement C-Q and L2 strategies"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 19 Nov | Proposed owner: Core/research roles | Depends on: B15"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Shared gate preserved; reliability and pattern rules independently testable."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B17 Bind verification to payout-change execution"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 19 Nov | Proposed owner: Backend role | Depends on: B07,B14,B15"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Action digest, ownership and single-use result checked atomically."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B18 Build user guidance and authorized admin views"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P1 | Planned | Target: 19 Nov | Proposed owner: Frontend role | Depends on: B08,B14,B16"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Real events displayed; review and research permissions separated."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B19 Acquire datasets and controlled capture consent"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 30 Oct | Proposed owner: Research role | Depends on: B01"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Access terms and retention recorded; fallback corpus plan if access denied."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B20 Prepare Test Plan and split manifests"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 20 Nov | Proposed owner: QA/research roles | Depends on: B05,B19"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Subject/source separation, IDs, procedures and metric denominators defined."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 1",
+      "text": "Evaluation and delivery"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B21 Extract paired feature table and metrics"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P1 | Planned | Target: 27 Nov | Proposed owner: Research role | Depends on: B11,B12,B16,B20"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Same sample evidence for C/C-Q/D; all outcomes and failures counted."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B22 Train and assess L3 advisor"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P1 | Planned | Target: 4 Dec | Proposed owner: Research role | Depends on: B21"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Train-only fitting, validation calibration and unchanged safety constraints."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B23 Freeze profiles and run blind evaluation"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 11 Dec | Proposed owner: QA/research roles | Depends on: B13,B20,B21"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Models/thresholds frozen; paired results, coverage, errors and latency reported."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B24 Security and privacy integration checks"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 11 Dec | Proposed owner: QA/backend roles | Depends on: B14,B17,B18"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Cross-user access, override, double consumption and retention tests pass."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B25 Update old public website for V2"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P1 | Planned | Target: 18 Dec | Proposed owner: Frontend/content roles | Depends on: B03,B18"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Remove obsolete claims and simulation ambiguity; correct repository/report links."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B26 Package Core and SDK and validate clean install"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P1 | Planned | Target: 18 Dec | Proposed owner: Platform role | Depends on: B06,B23,B24"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Reproducible build, documentation and no sensitive data; publication rights checked."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B27 Prepare final report and demo evidence"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P0 | Planned | Target: 31 Dec | Proposed owner: Team / delivery role | Depends on: B23,B24,B26"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Report actual results and limitations; all test outcomes traceable."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B28 Dynamic light challenge experiment"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P2 | Deferred | Target: Future phase | Proposed owner: Research role | Depends on: Core evaluation"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Separate capture protocol and rPPG interference evaluation."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "B29 Native capture and deep-rPPG comparisons"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "P2 | Deferred | Target: Future phase | Proposed owner: Mobile/research roles | Depends on: Core evaluation"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Done when: Separate scoped design and resources approved."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 1",
+      "text": "Dependencies and risks"
+    },
+    {
+      "kind": "table",
+      "rows": [
+        [
+          "Risk or dependency",
+          "Response and review trigger"
+        ],
+        [
+          "Dataset approval is delayed",
+          "Start permission requests early; use consented controlled recordings for matched features without overstating sample diversity."
+        ],
+        [
+          "Short capture cannot yield usable rPPG",
+          "Measure duration/quality trade-off. Keep mandatory rPPG gate; submit justified timing change rather than silently accepting without it."
+        ],
+        [
+          "PAD baseline misses new attacks",
+          "Report species-specific failure; evaluate model adaptation on training/validation data only."
+        ],
+        [
+          "Transport degrades RGB signal",
+          "Qualify encoding against lossless input and revise capture profile before final comparison."
+        ],
+        [
+          "Work exceeds team capacity",
+          "Preserve core, safety gates and C-Q/L2 research. Keep optical/native/deep-rPPG deferred; review L3 scheduling explicitly."
+        ],
+        [
+          "Model weights cannot be redistributed",
+          "Use permitted artifacts and documented retrieval; do not bundle unapproved weights or datasets."
+        ],
+        [
+          "Pending review retains sensitive material",
+          "Enforce encrypted temporary storage, reviewer-only access and automatic expiry/deletion."
+        ],
+        [
+          "Old website misrepresents implementation",
+          "Clearly label simulation and update content/report links as each delivery is completed."
+        ]
+      ]
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "Weekly update procedure"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "At each team meeting, confirm individual owners, status, blockers and completion evidence. Move an item to Complete only with a linked commit, test result or reviewed deliverable. Re-estimate remaining work and preserve each dated backlog version. Course deadlines take precedence over proposed internal targets."
+    },
+    {
+      "kind": "paragraph",
+      "style": "Heading 2",
+      "text": "Source and scope"
+    },
+    {
+      "kind": "paragraph",
+      "style": "Normal",
+      "text": "Sources: CMPE 492 Syllabus New.pdf; BioAuth V2 Design Baseline v2.0; BioAuth Low Level Design Report v1. The backlog includes the accepted design clarifications from the preparation session. Individual team assignments and completed implementation are not inferred from the earlier simulation website."
+    }
+  ]
+}

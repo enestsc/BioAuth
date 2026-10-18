@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Local document inspection and browser QA
 /tmp/
+
+# Versioned PDF reader assets are prepared from the pinned dependency.
+/public/pdfjs/
