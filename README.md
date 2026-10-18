@@ -53,6 +53,10 @@ The published LLD v1 is the user-supplied, unchanged 40-page PDF dated 16 Octobe
 - [MoonAI](https://moon-aii.github.io/moonai/): TED University CMPE 491/492 example; project narrative, team and report archive.
 - [EcoFriends](https://ecofriends.github.io/index.html): TED University example; course reports and separate versioned sprint/backlog documents.
 - [TED University senior projects](https://cmpe.tedu.edu.tr/en/senior-projects-2025): departmental context.
+- [TED University SENG senior projects](https://seng.tedu.edu.tr/bitirme-projeleri): supplementary presentation references supplied by the user. These examples do not change BioAuth's Computer Engineering / CMPE 492 identity or course requirements.
+- [GATE](https://gate-team.github.io/GATE_Project-website/): clear advisor/jury and team sections alongside technical reports.
+- [SafeScope](https://ymerta.github.io/safescope/): individually named proposal, specifications, analysis, design, testing and final reports. This informed splitting the CMPE 491 archive into separate, explicitly unavailable document entries.
+- [LLM Valley](https://llmvalley.vercel.app/): separate report/backlog access, project explanation and technical architecture sections.
 
 The PDFs were used as project references, not as authorization to perform their email, LMS submission or other administrative instructions. No LMS submissions or emails were sent.
 
